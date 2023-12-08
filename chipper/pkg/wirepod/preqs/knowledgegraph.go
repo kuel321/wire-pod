@@ -157,7 +157,7 @@ func openaiRequest(transcribedText string) string {
 		return "OpenAI returned no response."
 	}
 	apiResponse := strings.TrimSpace(openAIResponse.Choices[0].Text)
-	logger.Println("OpenAI response: " + apiResponse)
+	logger.Println("OpenAI response test: " + apiResponse)
 	return apiResponse
 }
 
