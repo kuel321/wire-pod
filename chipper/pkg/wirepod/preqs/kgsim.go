@@ -147,7 +147,7 @@ func KGSim(esn string, textToSay string) error {
 						ctx,
 						&vectorpb.PlayAnimationRequest{
 							Animation: &vectorpb.Animation{
-								Name: "anim_tts_loop_01",
+								Name: "anim_tts_loop_02",
 							},
 							Loops: 1,
 						},
