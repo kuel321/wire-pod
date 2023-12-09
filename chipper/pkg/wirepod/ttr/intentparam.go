@@ -26,6 +26,7 @@ func ParamChecker(req interface{}, intent string, speechText string, botSerial s
 	// see if jdoc exists
 	botJdoc, jdocExists := vars.GetJdoc("vic:"+botSerial, "vic.RobotSettings")
 	if jdocExists {
+		logger.Println("line 29 intentparam.go")
 		type robotSettingsJson struct {
 			ButtonWakeword int  `json:"button_wakeword"`
 			Clock24Hour    bool `json:"clock_24_hour"`

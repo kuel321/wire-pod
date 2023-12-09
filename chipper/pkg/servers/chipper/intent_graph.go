@@ -11,7 +11,7 @@ import (
 // StreamingIntentGraph handles intent graph request streams
 func (s *Server) StreamingIntentGraph(stream pb.ChipperGrpc_StreamingIntentGraphServer) error {
 	recvTime := time.Now()
-
+	logger.Println("line 14 intent_graph.go.go")
 	req, err := stream.Recv()
 	if err != nil {
 		logger.Println("Intent graph error")
@@ -21,6 +21,7 @@ func (s *Server) StreamingIntentGraph(stream pb.ChipperGrpc_StreamingIntentGraph
 	}
 
 	if _, err = s.intentGraph.ProcessIntentGraph(
+
 		&vtt.IntentGraphRequest{
 			Time:       recvTime,
 			Stream:     stream,

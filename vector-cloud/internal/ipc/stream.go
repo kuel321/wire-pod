@@ -47,5 +47,6 @@ func (s *streamListener) Accept() (net.Conn, error) {
 }
 
 func newStreamConnection(conn net.Conn) net.Conn {
+
 	return &streamConn{conn}
 }

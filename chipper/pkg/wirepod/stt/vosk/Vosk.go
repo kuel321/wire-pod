@@ -132,6 +132,7 @@ func Init() error {
 }
 
 func getRec(withGrm bool) (*vosk.VoskRecognizer, int) {
+	logger.Println("line 135 Vosk.go")
 	recsmu.Lock()
 	defer recsmu.Unlock()
 	if withGrm && GrammerEnable {
@@ -174,6 +175,7 @@ func getRec(withGrm bool) (*vosk.VoskRecognizer, int) {
 }
 
 func STT(req sr.SpeechRequest) (string, error) {
+	logger.Println("line 178 Vosk.go")
 	logger.Println("(Bot " + req.Device + ", Vosk) Processing...")
 	speechIsDone := false
 	var withGrm bool
