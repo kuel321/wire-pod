@@ -1,15 +1,14 @@
 package server
 
 import (
+	"context"
 
-	"net/http/pprof"
-	"net/http"
-	
-
+	pb "github.com/digital-dream-labs/api/go/chipperpb"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 )
 
 // TextIntent handles text-based request/responses from the device
-
-go func() {
-    log.Println(http.ListenAndServe("localhost:6060", nil))
-}()
+func (s *Server) TextIntent2(ctx context.Context, req *pb.TextRequest) (*pb.IntentResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "")
+}
