@@ -176,6 +176,7 @@ func KGSim(esn string, textToSay string) error {
 				}
 			}()
 			textToSaySplit := strings.Split(textToSay, ". ")
+			logger.Println(textToSay)
 			for _, str := range textToSaySplit {
 				_, err := robot.Conn.SayText(
 					ctx,
