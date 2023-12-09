@@ -50,7 +50,7 @@ func (s *Server) ProcessIntentGraph(req *vtt.IntentGraphRequest) (*vtt.IntentGra
 				IsFinal:      true,
 			}
 			logger.Println(response)
-			//req.Stream.Send(response)
+			req.Stream.Send(response)
 			
 			return nil, nil
 		}
