@@ -55,6 +55,7 @@ func (s *Server) ProcessIntentGraph(req *vtt.IntentGraphRequest) (*vtt.IntentGra
 			return nil, nil
 		}
 		*/
+		/*
 		assumeBehaviorControl(robotObj, robotIndex, "007077a9")
 		robot := robotObj.Vector
 	    ctx := robotObj.Ctx
@@ -66,7 +67,7 @@ func (s *Server) ProcessIntentGraph(req *vtt.IntentGraphRequest) (*vtt.IntentGra
 				Text:           "one two three four five six",
 			},
 		)
-		
+		*/
 		ttr.IntentPass(req, "intent_system_noaudio", transcribedText, map[string]string{"": ""}, false)
 		logger.Println(transcribedText + "testing this logger out")
 		return nil, nil
