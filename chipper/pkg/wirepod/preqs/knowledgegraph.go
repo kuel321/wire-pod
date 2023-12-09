@@ -160,7 +160,7 @@ func openaiRequest(transcribedText string) string {
 	logger.Println("OpenAI response test: " + apiResponse)
 	logger.Println(openAIResponse)
 	//return apiResponse
-	return "testing"
+	return apiResponse
 }
 
 func openaiKG(speechReq sr.SpeechRequest) string {

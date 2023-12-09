@@ -144,7 +144,7 @@ func KGSim(esn string, textToSay string) error {
 						ctx,
 						&vectorpb.PlayAnimationRequest{
 							Animation: &vectorpb.Animation{
-								Name: "anim_tts_loop_02",
+								Name: "anim_tts_loop_01",
 							},
 							Loops: 1,
 						},
@@ -154,7 +154,7 @@ func KGSim(esn string, textToSay string) error {
 			var stopTTS bool
 			go func() {
 				for {
-					time.Sleep(time.Millisecond * 50)
+					time.Sleep(time.Millisecond * 100)
 					if ShouldBeInterrupted(esn) {
 						RemoveFromInterrupt(esn)
 						robot.Conn.SayText(
