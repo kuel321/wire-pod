@@ -3,7 +3,7 @@ package wirepod_ttr
 import (
 	"context"
 	"log"
-
+	"github.com/kercre123/wire-pod/chipper/pkg/logger"
 	"github.com/fforchino/vector-go-sdk/pkg/vector"
 	"github.com/fforchino/vector-go-sdk/pkg/vectorpb"
 )
