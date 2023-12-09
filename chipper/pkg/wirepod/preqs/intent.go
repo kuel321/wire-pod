@@ -42,7 +42,7 @@ func (s *Server) ProcessIntent(req *vtt.IntentRequest) (*vtt.IntentResponse, err
 			RemoveFromInterrupt(req.Device)
 			resp := openaiRequest(transcribedText)
 			logger.LogUI("OpenAI response for device " + req.Device + ": " + resp)
-			KGSim(req.Device, resp)
+			//KGSim(req.Device, resp)
 		}
 		logger.Println("No intent was matched.")
 		ttr.IntentPass(req, "intent_system_noaudio", transcribedText, map[string]string{"": ""}, false)
