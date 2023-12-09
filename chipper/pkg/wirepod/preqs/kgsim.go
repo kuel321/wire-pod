@@ -41,6 +41,7 @@ func RemoveFromInterrupt(esn string) {
 }
 
 func KGSim(esn string, textToSay string) error {
+	logger.Println(textToSay)
 	ctx := context.Background()
 	matched := false
 	var robot *vector.Vector
@@ -124,7 +125,7 @@ func KGSim(esn string, textToSay string) error {
 		var stopTTSLoop bool
 		var TTSLoopStopped bool
 		for range start {
-			time.Sleep(time.Millisecond * 1000)
+			time.Sleep(time.Millisecond * 10000)
 			logger.Println("playing animation")
 			robot.Conn.PlayAnimation(
 				ctx,
@@ -157,7 +158,7 @@ func KGSim(esn string, textToSay string) error {
 			var stopTTS bool
 			go func() {
 				for {
-					time.Sleep(time.Millisecond * 500)
+					time.Sleep(time.Millisecond * 1000)
 					if ShouldBeInterrupted(esn) {
 						RemoveFromInterrupt(esn)
 						robot.Conn.SayText(
