@@ -158,6 +158,7 @@ func KGSim(esn string, textToSay string) error {
 			var stopTTS bool
 			go func() {
 				for {
+					logger.Println("for loop in kgsim.go line 161")
 					time.Sleep(time.Millisecond * 1000)
 					if ShouldBeInterrupted(esn) {
 						RemoveFromInterrupt(esn)
@@ -184,7 +185,7 @@ func KGSim(esn string, textToSay string) error {
 					ctx,
 					&vectorpb.SayTextRequest{
 						Text:           str + ".",
-						UseVectorVoice: true,
+						UseVectorVoice: false,
 						DurationScalar: 1.0,
 					},
 				)
