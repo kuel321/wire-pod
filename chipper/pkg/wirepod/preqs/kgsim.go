@@ -164,7 +164,7 @@ func KGSim(esn string, textToSay string) error {
 								UseVectorVoice: true,
 								DurationScalar: 1.0,
 							},
-							logger.Println.("was interrupted")
+							
 						)
 						stop <- true
 						stopTTSLoop = true
