@@ -37,6 +37,7 @@ func (strm *Streamer) sendAudio(samples []byte) error {
 // the current buffer without stalling if the GRPC streaming routine is blocked on
 // something and not ready for more audio yet
 func (strm *Streamer) bufferRoutine(streamSize int) {
+	logger.PrintLn("line 40 context.go")
 	defer close(strm.byteChan)
 	defer close(strm.audioStream)
 	audioBuf := make([]byte, 0, streamSize*2)
@@ -90,6 +91,7 @@ func (strm *Streamer) testRoutine(streamSize int) {
 // responseRoutine should be started after streaming begins, and will wait for a response
 // to send back to the main routine on the given channels
 func (strm *Streamer) responseRoutine() {
+	logger.PrintLn("line 94 context.go")
 	resp, err := strm.conn.WaitForResponse()
 	strm.respOnce.Do(func() {
 		if strm.closed {
@@ -126,6 +128,7 @@ func (strm *Streamer) responseRoutine() {
 }
 
 func (strm *Streamer) cancelResponse() {
+	logger.PrintLn("line 131 context.go")
 	done := strm.ctx.Done()
 	if done == nil {
 		return
@@ -141,6 +144,7 @@ func (strm *Streamer) cancelResponse() {
 }
 
 func sendIntentResponse(resp *chipper.IntentResult, receiver Receiver) {
+	logger.PrintLn("line 147 context.go")
 	metadata := fmt.Sprintf("text: %s  confidence: %f  handler: %s",
 		resp.QueryText, resp.IntentConfidence, resp.Service)
 	var buf bytes.Buffer
@@ -157,6 +161,7 @@ func sendIntentResponse(resp *chipper.IntentResult, receiver Receiver) {
 }
 
 func sendKGResponse(resp *chipper.KnowledgeGraphResponse, receiver Receiver, bypass bool) {
+	logger.PrintLn("line 164 context.go")
 	var buf bytes.Buffer
 	params := map[string]string{
 		"answer":      resp.SpokenText,
