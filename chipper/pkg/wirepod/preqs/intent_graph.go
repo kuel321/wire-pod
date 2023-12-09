@@ -4,8 +4,7 @@ import (
 	pb "github.com/digital-dream-labs/api/go/chipperpb"
 	"github.com/kercre123/wire-pod/chipper/pkg/logger"
 	"runtime/debug"
-	"net/http/pprof"
-	"net/http"
+	
 	"github.com/kercre123/wire-pod/chipper/pkg/vars"
 	"github.com/kercre123/wire-pod/chipper/pkg/vtt"
 	sr "github.com/kercre123/wire-pod/chipper/pkg/wirepod/speechrequest"
@@ -14,9 +13,6 @@ import (
 
 )
 
-func() {
-    log.Println(http.ListenAndServe("localhost:6060", nil))
-}()
 
 func (s *Server) ProcessIntentGraph(req *vtt.IntentGraphRequest) (*vtt.IntentGraphResponse, error) {
 	var successMatched bool
