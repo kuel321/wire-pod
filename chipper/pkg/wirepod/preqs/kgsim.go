@@ -142,6 +142,7 @@ func KGSim(esn string, textToSay string) error {
 						TTSLoopStopped = true
 						break
 					}
+					logger.Prinln("playing animation")
 					robot.Conn.PlayAnimation(
 						ctx,
 						&vectorpb.PlayAnimationRequest{
