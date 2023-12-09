@@ -1,7 +1,7 @@
 package processreqs
 
 import (
-	pb "github.com/digital-dream-labs/api/go/chipperpb"
+	//pb "github.com/digital-dream-labs/api/go/chipperpb"
 	"github.com/kercre123/wire-pod/chipper/pkg/logger"
 	"github.com/kercre123/wire-pod/chipper/pkg/vars"
 	"github.com/kercre123/wire-pod/chipper/pkg/vtt"
