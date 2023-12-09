@@ -69,6 +69,7 @@ func sayText(robot *vector.Vector, text string) {
 		}()
 		for range start {
 			robot.Conn.SayText(
+				logger.Println("for range start thingy")
 				context.Background(),
 				&vectorpb.SayTextRequest{
 					Text:           text,
