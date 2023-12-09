@@ -68,8 +68,9 @@ func sayText(robot *vector.Vector, text string) {
 			// * end - modified from official vector-go-sdk
 		}()
 		for range start {
+			logger.Println("for range start thingy")
 			robot.Conn.SayText(
-				logger.Println("for range start thingy")
+				
 				context.Background(),
 				&vectorpb.SayTextRequest{
 					Text:           text,
