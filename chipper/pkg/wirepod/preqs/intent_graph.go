@@ -49,10 +49,12 @@ func (s *Server) ProcessIntentGraph(req *vtt.IntentGraphRequest) (*vtt.IntentGra
 				QueryText:    transcribedText,
 				IsFinal:      true,
 			}
-			*/
-			//req.Stream.Send(response)
+			
+			req.Stream.Send(response)
+			
 			return nil, nil
 		}
+		*/
 		ttr.IntentPass(req, "intent_system_noaudio", transcribedText, map[string]string{"": ""}, false)
 		logger.Println(transcribedText + "testing this logger out")
 		return nil, nil
