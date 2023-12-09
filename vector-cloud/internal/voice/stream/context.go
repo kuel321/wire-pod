@@ -17,6 +17,7 @@ import (
 )
 
 func (strm *Streamer) sendAudio(samples []byte) error {
+	logger.Println("line 20 went trhough")
 	var err error
 	sendTime := util.TimeFuncMs(func() {
 		err = strm.conn.SendAudio(samples)
