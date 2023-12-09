@@ -162,7 +162,7 @@ func openaiRequest(transcribedText string) string {
 	logger.Println(openAIResponse)
 	//return apiResponse
 	*/
-	return "testing how many words vector can say before he just stops altogether. Not sure how much he can say"
+	return "one two three four five six"
 }
 
 func openaiKG(speechReq sr.SpeechRequest) string {
