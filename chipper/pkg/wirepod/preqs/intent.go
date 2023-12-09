@@ -39,6 +39,7 @@ func (s *Server) ProcessIntent(req *vtt.IntentRequest) (*vtt.IntentResponse, err
 	}
 	if !successMatched {
 		if vars.APIConfig.Knowledge.IntentGraph {
+			logger.Println("handling intent intent.go line 42")
 			RemoveFromInterrupt(req.Device)
 			resp := openaiRequest(transcribedText)
 			logger.LogUI("OpenAI response for device " + req.Device + ": " + resp)
