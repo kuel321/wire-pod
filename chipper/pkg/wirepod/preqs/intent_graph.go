@@ -42,8 +42,9 @@ func (s *Server) ProcessIntentGraph(req *vtt.IntentGraphRequest) (*vtt.IntentGra
 		logger.Println("No intent was matched.")
        
 		
-		/*
+		
 		if vars.APIConfig.Knowledge.Enable && vars.APIConfig.Knowledge.Provider == "openai" && len([]rune(transcribedText)) >= 8 {
+			logger.Println(len([]rune(transcribedText)))
 			apiResponse := openaiRequest(transcribedText)
 			response := &pb.IntentGraphResponse{
 				Session:      req.Session,
@@ -58,7 +59,7 @@ func (s *Server) ProcessIntentGraph(req *vtt.IntentGraphRequest) (*vtt.IntentGra
 			
 			return nil, nil
 		}
-		*/
+		
 		
 		/*
 		assumeBehaviorControl(robotObj, robotIndex, "007077a9")
