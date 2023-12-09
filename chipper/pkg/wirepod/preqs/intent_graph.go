@@ -3,6 +3,7 @@ package processreqs
 import (
 	pb "github.com/digital-dream-labs/api/go/chipperpb"
 	"github.com/kercre123/wire-pod/chipper/pkg/logger"
+	"runtime/debug"
 	"github.com/kercre123/wire-pod/chipper/pkg/vars"
 	"github.com/kercre123/wire-pod/chipper/pkg/vtt"
 	sr "github.com/kercre123/wire-pod/chipper/pkg/wirepod/speechrequest"
@@ -56,7 +57,7 @@ func (s *Server) ProcessIntentGraph(req *vtt.IntentGraphRequest) (*vtt.IntentGra
 			}
 			logger.Println(req.Stream.Send())
 			req.Stream.Send(response)
-			
+			debug.PrintStack()
 			return nil, nil
 		}
 		
