@@ -154,7 +154,7 @@ func KGSim(esn string, textToSay string) error {
 			var stopTTS bool
 			go func() {
 				for {
-					time.Sleep(time.Millisecond * 1000)
+					time.Sleep(time.Millisecond * 500)
 					if ShouldBeInterrupted(esn) {
 						RemoveFromInterrupt(esn)
 						robot.Conn.SayText(
@@ -164,6 +164,7 @@ func KGSim(esn string, textToSay string) error {
 								UseVectorVoice: true,
 								DurationScalar: 1.0,
 							},
+							Println.("was interrupted")
 						)
 						stop <- true
 						stopTTSLoop = true
