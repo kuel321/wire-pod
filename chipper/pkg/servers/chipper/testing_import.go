@@ -9,6 +9,6 @@ import (
 )
 
 // TextIntent handles text-based request/responses from the device
-func (s *Server) TextIntent(ctx context.Context, req *pb.TextRequest) (*pb.IntentResponse, error) {
+func (s *Server) TextIntent2(ctx context.Context, req *pb.TextRequest) (*pb.IntentResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "")
 }
