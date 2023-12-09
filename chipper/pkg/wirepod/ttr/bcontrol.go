@@ -9,6 +9,7 @@ import (
 )
 
 func sayText(robot *vector.Vector, text string) {
+	logger.Println("sayingtext")
 	controlRequest := &vectorpb.BehaviorControlRequest{
 		RequestType: &vectorpb.BehaviorControlRequest_ControlRequest{
 			ControlRequest: &vectorpb.ControlRequest{
