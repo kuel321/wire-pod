@@ -38,7 +38,7 @@ type SpeechRequest struct {
 }
 
 func BytesToSamples(buf []byte) []int16 {
-	
+
 	samples := make([]int16, len(buf)/2)
 	for i := 0; i < len(buf)/2; i++ {
 		samples[i] = int16(binary.LittleEndian.Uint16(buf[i*2:]))
@@ -130,6 +130,7 @@ func (req *SpeechRequest) DetectEndOfSpeech() bool {
 
 // Converts a vtt.*Request to a SpeechRequest, which allows functions like DetectEndOfSpeech to work
 func ReqToSpeechRequest(req interface{}) SpeechRequest {
+	logger.Println("line 133 speechrequest.go")
 	if debugWriteFile {
 		debugFile, _ = os.Create("/tmp/wirepodtest.ogg")
 	}
@@ -184,6 +185,7 @@ func ReqToSpeechRequest(req interface{}) SpeechRequest {
 
 // Returns the next chunk in the stream as 16000 Hz PCM
 func (req *SpeechRequest) GetNextStreamChunk() ([]byte, error) {
+	logger.Println("line 187 speechrequest.go")
 	// returns next chunk in voice stream as pcm
 	if str, ok := req.Stream.(pb.ChipperGrpc_StreamingIntentServer); ok {
 		var stream pb.ChipperGrpc_StreamingIntentServer = str
@@ -234,6 +236,7 @@ func (req *SpeechRequest) GetNextStreamChunk() ([]byte, error) {
 
 // Returns next chunk in the stream as whatever the original format is (OPUS 99% of the time)
 func (req *SpeechRequest) GetNextStreamChunkOpus() ([]byte, error) {
+	logger.Println("line 328 speechrequest.go")
 	if str, ok := req.Stream.(pb.ChipperGrpc_StreamingIntentServer); ok {
 		var stream pb.ChipperGrpc_StreamingIntentServer = str
 		chunk, chunkErr := stream.Recv()

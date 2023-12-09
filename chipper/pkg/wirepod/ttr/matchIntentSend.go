@@ -218,6 +218,7 @@ func pluginFunctionHandler(req interface{}, voiceText string, botSerial string) 
 }
 
 func ProcessTextAll(req interface{}, voiceText string, listOfLists [][]string, intentList []string, isOpus bool) bool {
+	logger.Println("line 221 matchIntentSend.go")
 	var botSerial string
 	var req2 *vtt.IntentRequest
 	var req1 *vtt.KnowledgeGraphRequest

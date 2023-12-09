@@ -41,7 +41,8 @@ func RemoveFromInterrupt(esn string) {
 }
 
 func KGSim(esn string, textToSay string) error {
-	logger.Println(textToSay)
+	logger.Println("line 44 kgsim.go")
+
 	ctx := context.Background()
 	matched := false
 	var robot *vector.Vector
@@ -74,6 +75,7 @@ func KGSim(esn string, textToSay string) error {
 		stop := make(chan bool)
 
 		go func() {
+			logger.Println("line 77 kgsim.go")
 			// * begin - modified from official vector-go-sdk
 			r, err := robot.Conn.BehaviorControl(
 				ctx,
@@ -157,6 +159,7 @@ func KGSim(esn string, textToSay string) error {
 			}()
 			var stopTTS bool
 			go func() {
+				logger.Println("line 160 kgsim.go")
 				for {
 					logger.Println("for loop in kgsim.go line 161")
 					time.Sleep(time.Millisecond * 1000)
@@ -169,7 +172,6 @@ func KGSim(esn string, textToSay string) error {
 								UseVectorVoice: true,
 								DurationScalar: 1.0,
 							},
-							
 						)
 						stop <- true
 						stopTTSLoop = true
@@ -179,7 +181,7 @@ func KGSim(esn string, textToSay string) error {
 				}
 			}()
 			textToSaySplit := strings.Split(textToSay, ". ")
-			logger.Println(textToSay)
+			logger.Println("line 182 kgsim.go")
 			for _, str := range textToSaySplit {
 				_, err := robot.Conn.SayText(
 					ctx,
