@@ -7,13 +7,30 @@ import (
 	"net/http"
 	"strings"
 
-	pb "github.com/digital-dream-labs/api/go/chipperpb"
+	//pb "github.com/digital-dream-labs/api/go/chipperpb"
 	"github.com/kercre123/wire-pod/chipper/pkg/logger"
 	"github.com/kercre123/wire-pod/chipper/pkg/vars"
 	"github.com/kercre123/wire-pod/chipper/pkg/vtt"
 	sr "github.com/kercre123/wire-pod/chipper/pkg/wirepod/speechrequest"
 	"github.com/pkg/errors"
 	"github.com/soundhound/houndify-sdk-go"
+	
+	
+	"fmt"
+	"image"
+
+	
+	
+	"os"
+	"strconv"
+	"strings"
+	"time"
+
+	"github.com/fforchino/vector-go-sdk/pkg/vectorpb"
+	"github.com/kercre123/wire-pod/chipper/pkg/logger"
+	"github.com/kercre123/wire-pod/chipper/pkg/vars"
+	botsetup "github.com/kercre123/wire-pod/chipper/pkg/wirepod/setup"
+	"github.com/ncruces/zenity"
 )
 
 var HKGclient houndify.Client

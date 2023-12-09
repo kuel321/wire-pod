@@ -55,13 +55,15 @@ func (s *Server) ProcessIntentGraph(req *vtt.IntentGraphRequest) (*vtt.IntentGra
 			return nil, nil
 		}
 		*/
-		assumeBehaviorControl(robotObj, robotIndex, r.FormValue("priority"))
+		assumeBehaviorControl(robotObj, robotIndex, "007077a9")
+		robot := robotObj.Vector
+	    ctx := robotObj.Ctx
 		robot.Conn.SayText(
 			ctx,
 			&vectorpb.SayTextRequest{
 				DurationScalar: 1,
 				UseVectorVoice: true,
-				Text:           r.FormValue("text"),
+				Text:           "one two three four five six",
 			},
 		)
 		
