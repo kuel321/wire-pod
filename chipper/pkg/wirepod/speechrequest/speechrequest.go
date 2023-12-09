@@ -38,6 +38,7 @@ type SpeechRequest struct {
 }
 
 func BytesToSamples(buf []byte) []int16 {
+	logger.PrintLn("line 41 context.go")
 	samples := make([]int16, len(buf)/2)
 	for i := 0; i < len(buf)/2; i++ {
 		samples[i] = int16(binary.LittleEndian.Uint16(buf[i*2:]))
