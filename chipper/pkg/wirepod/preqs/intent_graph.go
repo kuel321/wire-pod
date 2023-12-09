@@ -48,7 +48,7 @@ func (s *Server) ProcessIntentGraph(req *vtt.IntentGraphRequest) (*vtt.IntentGra
 				QueryText:    transcribedText,
 				IsFinal:      true,
 			}
-			logger.Println(response + "test" + req)
+			
 			req.Stream.Send(response)
 			return nil, nil
 		}
