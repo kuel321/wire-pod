@@ -154,7 +154,7 @@ func SdkapiHandler(w http.ResponseWriter, r *http.Request) {
 			&vectorpb.SayTextRequest{
 				DurationScalar: 1,
 				UseVectorVoice: true,
-				Text:           r.FormValue("text"),
+				Text:           "testing",
 			},
 		)
 		fmt.Fprintf(w, "success")

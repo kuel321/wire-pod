@@ -7,6 +7,7 @@ import (
 	"github.com/kercre123/wire-pod/chipper/pkg/vtt"
 	sr "github.com/kercre123/wire-pod/chipper/pkg/wirepod/speechrequest"
 	ttr "github.com/kercre123/wire-pod/chipper/pkg/wirepod/ttr"
+	sdkapp "github.com/kercre123/vector-go-sdk/pkg/wirepod/sdkapp"
 
 )
 
@@ -40,8 +41,8 @@ func (s *Server) ProcessIntentGraph(req *vtt.IntentGraphRequest) (*vtt.IntentGra
 	if !successMatched {
 		logger.Println("No intent was matched.")
        
-		
-		
+		sdk.SayText()
+		/*
 		if vars.APIConfig.Knowledge.Enable && vars.APIConfig.Knowledge.Provider == "openai" && len([]rune(transcribedText)) >= 8 {
 			apiResponse := openaiRequest(transcribedText)
 			response := &pb.IntentGraphResponse{
@@ -57,6 +58,7 @@ func (s *Server) ProcessIntentGraph(req *vtt.IntentGraphRequest) (*vtt.IntentGra
 			
 			return nil, nil
 		}
+		*/
 		
 		/*
 		assumeBehaviorControl(robotObj, robotIndex, "007077a9")
