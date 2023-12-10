@@ -15,7 +15,7 @@ import (
 func (s *Server) ProcessIntentGraph(req *vtt.IntentGraphRequest) (*vtt.IntentGraphResponse, error) {
 	var successMatched bool
 	speechReq := sr.ReqToSpeechRequest(req)
-	logger.Println((req))
+	logger.Println(req)
 	var transcribedText string
 	if !isSti {
 		var err error
@@ -56,7 +56,7 @@ func (s *Server) ProcessIntentGraph(req *vtt.IntentGraphRequest) (*vtt.IntentGra
 			}
 
 			req.Stream.Send(response)
-			logger.Println(response)
+			//logger.Println(response)
 			return nil, nil
 		}
 
