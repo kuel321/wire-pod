@@ -3,8 +3,6 @@ package processreqs
 import (
 	"runtime/debug"
 
-	"runtime/debug"
-
 	pb "github.com/digital-dream-labs/api/go/chipperpb"
 	"github.com/kercre123/wire-pod/chipper/pkg/logger"
 
