@@ -16,6 +16,7 @@ func (s *Server) ProcessIntentGraph(req *vtt.IntentGraphRequest) (*vtt.IntentGra
 	var successMatched bool
 	speechReq := sr.ReqToSpeechRequest(req)
 	logger.Println(req)
+	logger.Println("line 19 intent_graph.go")
 	var transcribedText string
 	if !isSti {
 		var err error
