@@ -157,7 +157,7 @@ func SdkapiHandler(w http.ResponseWriter, r *http.Request) {
 				Text:           "testing",
 			},
 		)
-		fmt.Fprintf(w, "success")
+		fmt.Fprintf(w, robot.Cfg.SerialNo, "success")
 		return
 	case r.URL.Path == "/api-sdk/move_wheels":
 		lw, _ := strconv.Atoi(r.FormValue("lw"))

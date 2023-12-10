@@ -3,9 +3,9 @@ package processreqs
 import (
 	//"runtime/debug"
 
-	pb "github.com/digital-dream-labs/api/go/chipperpb"
 	"github.com/kercre123/wire-pod/chipper/pkg/logger"
 
+	"github.com/fforchino/vector-go-sdk/pkg/vectorpb"
 	"github.com/kercre123/wire-pod/chipper/pkg/vars"
 	"github.com/kercre123/wire-pod/chipper/pkg/vtt"
 	sr "github.com/kercre123/wire-pod/chipper/pkg/wirepod/speechrequest"
@@ -13,10 +13,15 @@ import (
 )
 
 func (s *Server) ProcessIntentGraph(req *vtt.IntentGraphRequest) (*vtt.IntentGraphResponse, error) {
+	robotObj, robotIndex, err := getRobot("007077a9")
+	robot := robotObj.Vector
+	ctx := robotObj.Ctx
 	var successMatched bool
+	logger.Println(err)
 	speechReq := sr.ReqToSpeechRequest(req)
 	logger.Println(req)
 	logger.Println("line 19 intent_graph.go")
+
 	var transcribedText string
 	if !isSti {
 		var err error
@@ -44,22 +49,33 @@ func (s *Server) ProcessIntentGraph(req *vtt.IntentGraphRequest) (*vtt.IntentGra
 	if !successMatched {
 		logger.Println("No intent was matched.")
 
-		if vars.APIConfig.Knowledge.Enable && vars.APIConfig.Knowledge.Provider == "openai" && len([]rune(transcribedText)) >= 8 {
+		assumeBehaviorControl(robotObj, robotIndex, "high")
+		robot.Conn.SayText(
+			ctx,
+			&vectorpb.SayTextRequest{
+				DurationScalar: 1,
+				UseVectorVoice: true,
+				Text:           "testing",
+			},
+		)
+		/*
+			if vars.APIConfig.Knowledge.Enable && vars.APIConfig.Knowledge.Provider == "openai" && len([]rune(transcribedText)) >= 8 {
 
-			apiResponse := openaiRequest(transcribedText)
-			response := &pb.IntentGraphResponse{
-				Session:      req.Session,
-				DeviceId:     req.Device,
-				ResponseType: pb.IntentGraphMode_KNOWLEDGE_GRAPH,
-				SpokenText:   apiResponse,
-				QueryText:    transcribedText,
-				IsFinal:      true,
+				apiResponse := openaiRequest(transcribedText)
+				response := &pb.IntentGraphResponse{
+					Session:      req.Session,
+					DeviceId:     req.Device,
+					ResponseType: pb.IntentGraphMode_KNOWLEDGE_GRAPH,
+					SpokenText:   apiResponse,
+					QueryText:    transcribedText,
+					IsFinal:      true,
+				}
+
+				req.Stream.Send(response)
+				//logger.Println(response)
+				return nil, nil
 			}
-
-			req.Stream.Send(response)
-			//logger.Println(response)
-			return nil, nil
-		}
+		*/
 
 		/*
 				assumeBehaviorControl(robotObj, robotIndex, "007077a9")
