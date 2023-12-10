@@ -50,7 +50,7 @@ func (s *Server) ProcessIntentGraph(req *vtt.IntentGraphRequest) (*vtt.IntentGra
 	}
 	if !successMatched {
 		logger.Println("No intent was matched.")
-
+		apiResponse := openaiRequest(transcribedText)
 		assumeBehaviorControl(robotObj, robotIndex, "high")
 		time.Sleep(5 * time.Second)
 		logger.Println("sleep over")
@@ -59,9 +59,10 @@ func (s *Server) ProcessIntentGraph(req *vtt.IntentGraphRequest) (*vtt.IntentGra
 			&vectorpb.SayTextRequest{
 				DurationScalar: 1,
 				UseVectorVoice: true,
-				Text:           "testing",
+				Text:           apiResponse,
 			},
 		)
+		robots[robotIndex].BcAssumption = false
 		/*
 			if vars.APIConfig.Knowledge.Enable && vars.APIConfig.Knowledge.Provider == "openai" && len([]rune(transcribedText)) >= 8 {
 
