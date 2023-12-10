@@ -3,6 +3,8 @@ package processreqs
 import (
 	//"runtime/debug"
 
+	"time"
+
 	"github.com/kercre123/wire-pod/chipper/pkg/logger"
 
 	"github.com/fforchino/vector-go-sdk/pkg/vectorpb"
@@ -50,6 +52,8 @@ func (s *Server) ProcessIntentGraph(req *vtt.IntentGraphRequest) (*vtt.IntentGra
 		logger.Println("No intent was matched.")
 
 		assumeBehaviorControl(robotObj, robotIndex, "high")
+		time.Sleep(5 * time.Second)
+		logger.Println("sleep over")
 		robot.Conn.SayText(
 			ctx,
 			&vectorpb.SayTextRequest{
