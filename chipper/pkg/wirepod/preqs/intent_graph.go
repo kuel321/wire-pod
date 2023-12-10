@@ -1,7 +1,7 @@
 package processreqs
 
 import (
-	"runtime/debug"
+	//"runtime/debug"
 
 	pb "github.com/digital-dream-labs/api/go/chipperpb"
 	"github.com/kercre123/wire-pod/chipper/pkg/logger"
@@ -48,14 +48,14 @@ func (s *Server) ProcessIntentGraph(req *vtt.IntentGraphRequest) (*vtt.IntentGra
 			response := &pb.IntentGraphResponse{
 				Session:      req.Session,
 				DeviceId:     req.Device,
-				ResponseType: pb.IntentGraphMode_INTENT,
+				ResponseType: pb.IntentGraphMode_KNOWLEDGE_GRAPH,
 				SpokenText:   apiResponse,
 				QueryText:    transcribedText,
 				IsFinal:      true,
 			}
 
 			req.Stream.Send(response)
-			debug.PrintStack()
+
 			return nil, nil
 		}
 
