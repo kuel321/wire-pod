@@ -48,7 +48,7 @@ func (s *Server) ProcessIntentGraph(req *vtt.IntentGraphRequest) (*vtt.IntentGra
 			response := &pb.IntentGraphResponse{
 				Session:      req.Session,
 				DeviceId:     req.Device,
-				ResponseType: pb.IntentGraphMode_UKNOWN,
+				ResponseType: pb.IntentGraphMode_INTENT,
 				SpokenText:   apiResponse,
 				QueryText:    transcribedText,
 				IsFinal:      true,
