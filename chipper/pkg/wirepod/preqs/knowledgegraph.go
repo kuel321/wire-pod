@@ -162,7 +162,6 @@ func openaiRequest(transcribedText string) string {
 	}
 	apiResponse := strings.TrimSpace(openAIResponse.Choices[0].Text)
 	logger.Println("OpenAI response test: " + apiResponse)
-	logger.Println(sendString)
 
 	textToSpeechOpenAi(transcribedText)
 
