@@ -111,7 +111,7 @@ func togetherRequest(transcribedText string) string {
 
 func openaiRequest(transcribedText string) string {
 
-	sendString := "You are walter white from breaking bad. Answer like you're on the show and I'm talking to you" + "\\" + "\"" + transcribedText + "\\" + "\"" + " , Answer: "
+	sendString := "You are a cute little robot named Vector. You live in your owners office, who is named Luke. You are sweet and adorable but not overbearingly so. You provide smart answers while being cute" + "\\" + "\"" + transcribedText + "\\" + "\"" + " , Answer: "
 	logger.Println("Making request to OpenAI...")
 	url := "https://api.openai.com/v1/completions"
 	formData := `{
