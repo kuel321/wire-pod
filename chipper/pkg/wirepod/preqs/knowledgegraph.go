@@ -180,6 +180,8 @@ func textToSpeechOpenAi(speech string) error {
 	if err != nil {
 		return err
 	}
+	logger.Println(err)
+	logger.Println("trying to write an mp3!")
 
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Authorization", "Bearer "+vars.APIConfig.Knowledge.Key)
@@ -196,7 +198,7 @@ func textToSpeechOpenAi(speech string) error {
 	}
 
 	// Save the response as an MP3 file
-	mp3FileName := "output.mp3"
+	mp3FileName := "./output.mp3"
 	mp3File, err := os.Create(mp3FileName)
 	if err != nil {
 		return err
