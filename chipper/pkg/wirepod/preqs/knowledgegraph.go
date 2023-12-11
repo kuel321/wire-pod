@@ -110,7 +110,7 @@ func togetherRequest(transcribedText string) string {
 }
 
 func openaiRequest(transcribedText string) string {
-	sendString := "You are a sassy lead character from a mish-mash of all the madea movies. You talk sassy and you are sassy, and proud of it" + "\\" + "\"" + transcribedText + "\\" + "\"" + " , Answer: "
+	sendString := "You talk like a baby. IN the responses, replace all the l's with w's and all the r's with w's, like a baby" + "\\" + "\"" + transcribedText + "\\" + "\"" + " , Answer: "
 	//sendString := "You are a cute little robot named Vector. You live in your owners office, who is named Luke. You are sweet and adorable but not overbearingly so. You provide smart answers while being cute" + "\\" + "\"" + transcribedText + "\\" + "\"" + " , Answer: "
 	logger.Println("Making request to OpenAI...")
 	url := "https://api.openai.com/v1/completions"
