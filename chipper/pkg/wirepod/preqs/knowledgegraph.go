@@ -179,8 +179,6 @@ func textToSpeechOpenAi(speech string) error {
 	if err != nil {
 		return err
 	}
-	logger.Println(err)
-	logger.Println("trying to write an mp3!")
 
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Authorization", "Bearer "+vars.APIConfig.Knowledge.Key)
@@ -195,11 +193,15 @@ func textToSpeechOpenAi(speech string) error {
 	if resp.StatusCode != http.StatusOK {
 		return fmt.Errorf("API request failed with status code: %d", resp.StatusCode)
 	}
-	if _, err := os.Stat("output"); os.IsNotExist(err) {
-		os.Mkdir("output_files", 0755)
+
+	// Read the response body completely
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return err
 	}
+
 	// Save the response as an MP3 file
-	mp3FileName := "output/output.mp3"
+	mp3FileName := "output.mp3"
 	mp3File, err := os.Create(mp3FileName)
 	if err != nil {
 		return err
@@ -207,7 +209,7 @@ func textToSpeechOpenAi(speech string) error {
 	defer mp3File.Close()
 
 	// Decode the audio response and save it as an MP3 file
-	decoder, err := mp3.NewDecoder(resp.Body)
+	decoder, _ := mp3.NewDecoder(bytes.NewReader(body))
 	if err != nil {
 		return err
 	}
