@@ -3,11 +3,14 @@ package processreqs
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"io"
 	"net/http"
+	"os"
 	"strings"
 
 	pb "github.com/digital-dream-labs/api/go/chipperpb"
+	"github.com/hajimehoshi/go-mp3"
 	"github.com/kercre123/wire-pod/chipper/pkg/logger"
 	"github.com/kercre123/wire-pod/chipper/pkg/vars"
 	"github.com/kercre123/wire-pod/chipper/pkg/vtt"
@@ -165,31 +168,56 @@ func openaiRequest(transcribedText string) string {
 
 	return apiResponse
 }
-func textToSpeechOpenAi(speech string) string {
+func textToSpeechOpenAi(speech string) error {
 	url := "https://api.openai.com/v1/audio/speech"
 	formData := `{
 		"model": "tts-1",
 		"input": "` + speech + `",
-		"temperature": 0.7,
-		"max_tokens": 256,
-		"top_p": 1,
-		"frequency_penalty": 0.2,
-		"presence_penalty": 0
-		}`
-	req, _ := http.NewRequest("POST", url, bytes.NewBuffer([]byte(formData)))
-	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Authorization", "Bearer "+vars.APIConfig.Knowledge.Key)
-	client := &http.Client{}
-	resp, err := client.Do(req)
+		"voice": "alloy"
+	}`
 
-	defer resp.Body.Close()
-	body, _ := io.ReadAll(resp.Body)
-	logger.Println(body)
+	req, err := http.NewRequest("POST", url, bytes.NewBuffer([]byte(formData)))
 	if err != nil {
-		logger.Println(err)
+		return err
 	}
 
-	return string(body)
+	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Authorization", "Bearer "+vars.APIConfig.Knowledge.Key)
+
+	client := &http.Client{}
+	resp, err := client.Do(req)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return fmt.Errorf("API request failed with status code: %d", resp.StatusCode)
+	}
+
+	// Save the response as an MP3 file
+	mp3FileName := "output.mp3"
+	mp3File, err := os.Create(mp3FileName)
+	if err != nil {
+		return err
+	}
+	defer mp3File.Close()
+
+	// Decode the audio response and save it as an MP3 file
+	decoder, err := mp3.NewDecoder(resp.Body)
+	if err != nil {
+		return err
+	}
+
+	// Copy the decoded audio to the MP3 file
+	_, err = io.Copy(mp3File, decoder)
+	if err != nil {
+		return err
+	}
+
+	logger.Println("Speech successfully converted and saved as %s\n", mp3FileName)
+
+	return nil
 
 }
 func openaiKG(speechReq sr.SpeechRequest) string {
