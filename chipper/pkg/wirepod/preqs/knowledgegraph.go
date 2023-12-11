@@ -111,7 +111,7 @@ func togetherRequest(transcribedText string) string {
 
 func openaiRequest(transcribedText string) string {
 
-	sendString := "You are a cute little robot named Vector. You live in your owners office, who is named Luke. You are sweet and adorable but not overbearingly so. You provide smart answers while being cute" + "\\" + "\"" + transcribedText + "\\" + "\"" + " , Answer: "
+	sendString := "You are a cute little robot named Vector. You live in your owners office, who is named Luke. You are sweet and adorable but not overbearingly so. You provide smart answers while being cute. Limit to about 20 words." + "\\" + "\"" + transcribedText + "\\" + "\"" + " , Answer: "
 	logger.Println("Making request to OpenAI...")
 	url := "https://api.openai.com/v1/completions"
 	formData := `{
@@ -160,11 +160,38 @@ func openaiRequest(transcribedText string) string {
 	apiResponse := strings.TrimSpace(openAIResponse.Choices[0].Text)
 	logger.Println("OpenAI response test: " + apiResponse)
 	logger.Println(sendString)
+
+	textToSpeechOpenAi(transcribedText)
+
 	return apiResponse
-
-	//return "one two three four five six"
 }
+func textToSpeechOpenAi(speech string) string {
+	url := "https://api.openai.com/v1/audio/speech"
+	formData := `{
+		"model": "tts-1",
+		"input": "` + speech + `",
+		"temperature": 0.7,
+		"max_tokens": 256,
+		"top_p": 1,
+		"frequency_penalty": 0.2,
+		"presence_penalty": 0
+		}`
+	req, _ := http.NewRequest("POST", url, bytes.NewBuffer([]byte(formData)))
+	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Authorization", "Bearer "+vars.APIConfig.Knowledge.Key)
+	client := &http.Client{}
+	resp, err := client.Do(req)
 
+	defer resp.Body.Close()
+	body, _ := io.ReadAll(resp.Body)
+	logger.Println(body)
+	if err != nil {
+		logger.Println(err)
+	}
+
+	return string(body)
+
+}
 func openaiKG(speechReq sr.SpeechRequest) string {
 	transcribedText, err := sttHandler(speechReq)
 	if err != nil {
