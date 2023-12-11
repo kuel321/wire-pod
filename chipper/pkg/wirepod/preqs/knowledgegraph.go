@@ -161,13 +161,13 @@ func openaiRequest(transcribedText string) string {
 		return "OpenAI returned no response."
 	}
 	apiResponse := strings.TrimSpace(openAIResponse.Choices[0].Text)
-	logger.Println("OpenAI response test: " + apiResponse)
 
 	textToSpeechOpenAi(transcribedText)
 
 	return apiResponse
 }
 func textToSpeechOpenAi(speech string) error {
+
 	url := "https://api.openai.com/v1/audio/speech"
 	formData := `{
 		"model": "tts-1",
@@ -195,9 +195,11 @@ func textToSpeechOpenAi(speech string) error {
 	if resp.StatusCode != http.StatusOK {
 		return fmt.Errorf("API request failed with status code: %d", resp.StatusCode)
 	}
-
+	if _, err := os.Stat("output"); os.IsNotExist(err) {
+		os.Mkdir("output_files", 0755)
+	}
 	// Save the response as an MP3 file
-	mp3FileName := "./output.mp3"
+	mp3FileName := "output/output.mp3"
 	mp3File, err := os.Create(mp3FileName)
 	if err != nil {
 		return err
