@@ -167,13 +167,12 @@ func openaiRequest(transcribedText string) string {
 	return apiResponse
 }
 func textToSpeechOpenAi(speech string) error {
-
 	url := "https://api.openai.com/v1/audio/speech"
-	formData := `{
+	formData := fmt.Sprintf(`{
 		"model": "tts-1",
-		"input": "` + speech + `",
+		"input": "`+speech+`",
 		"voice": "alloy"
-	}`
+	}`, speech)
 
 	req, err := http.NewRequest("POST", url, bytes.NewBuffer([]byte(formData)))
 	if err != nil {
@@ -209,10 +208,7 @@ func textToSpeechOpenAi(speech string) error {
 	defer mp3File.Close()
 
 	// Decode the audio response and save it as an MP3 file
-	decoder, _ := mp3.NewDecoder(bytes.NewReader(body))
-	if err != nil {
-		return err
-	}
+	decoder, err := mp3.NewDecoder(bytes.NewReader(body))
 
 	// Copy the decoded audio to the MP3 file
 	_, err = io.Copy(mp3File, decoder)
@@ -222,6 +218,7 @@ func textToSpeechOpenAi(speech string) error {
 
 	logger.Println("Speech successfully converted and saved as %s\n", mp3FileName)
 
+	return nil
 	return nil
 
 }
