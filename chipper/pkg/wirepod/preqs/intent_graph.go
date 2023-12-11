@@ -52,7 +52,7 @@ func (s *Server) ProcessIntentGraph(req *vtt.IntentGraphRequest) (*vtt.IntentGra
 		logger.Println("No intent was matched.")
 		apiResponse := openaiRequest(transcribedText)
 		assumeBehaviorControl(robotObj, robotIndex, "high")
-		time.Sleep(2 * time.Second)
+		time.Sleep(1 * time.Second)
 		logger.Println("sleep over")
 		robot.Conn.SayText(
 			ctx,
