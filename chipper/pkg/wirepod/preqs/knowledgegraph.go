@@ -201,6 +201,7 @@ func textToSpeechOpenAi(speech string) error {
 	}
 
 	_, err = io.Copy(out, resp.Body)
+	logger.Println(resp.Body)
 	if err != nil {
 		return err
 	}
