@@ -10,7 +10,7 @@ import (
 	"strings"
 
 	pb "github.com/digital-dream-labs/api/go/chipperpb"
-	"github.com/hajimehoshi/go-mp3"
+	//"github.com/hajimehoshi/go-mp3"
 	"github.com/kercre123/wire-pod/chipper/pkg/logger"
 	"github.com/kercre123/wire-pod/chipper/pkg/vars"
 	"github.com/kercre123/wire-pod/chipper/pkg/vtt"
@@ -167,12 +167,19 @@ func openaiRequest(transcribedText string) string {
 	return apiResponse
 }
 func textToSpeechOpenAi(speech string) error {
+
+	out, err := os.Create("./output.mp3")
+	if err != nil {
+		return err
+	}
+	defer out.Close()
+
 	url := "https://api.openai.com/v1/audio/speech"
-	formData := fmt.Sprintf(`{
+	formData := `{
 		"model": "tts-1",
-		"input": "`+speech+`",
+		"input": "` + speech + `",
 		"voice": "alloy"
-	}`, speech)
+	}`
 
 	req, err := http.NewRequest("POST", url, bytes.NewBuffer([]byte(formData)))
 	if err != nil {
@@ -190,35 +197,14 @@ func textToSpeechOpenAi(speech string) error {
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		return fmt.Errorf("API request failed with status code: %d", resp.StatusCode)
+		return fmt.Errorf("bad status: %s", resp.Status)
 	}
 
-	// Read the response body completely
-	body, err := io.ReadAll(resp.Body)
+	_, err = io.Copy(out, resp.Body)
 	if err != nil {
 		return err
 	}
 
-	// Save the response as an MP3 file
-	mp3FileName := "output.mp3"
-	mp3File, err := os.Create(mp3FileName)
-	if err != nil {
-		return err
-	}
-	defer mp3File.Close()
-
-	// Decode the audio response and save it as an MP3 file
-	decoder, err := mp3.NewDecoder(bytes.NewReader(body))
-
-	// Copy the decoded audio to the MP3 file
-	_, err = io.Copy(mp3File, decoder)
-	if err != nil {
-		return err
-	}
-
-	logger.Println("Speech successfully converted and saved as %s\n", mp3FileName)
-
-	return nil
 	return nil
 
 }
