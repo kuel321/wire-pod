@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"encoding/json"
 
-	//"fmt"
 	"io"
 	"net/http"
 
@@ -116,6 +115,22 @@ func togetherRequest(transcribedText string) string {
 	return "Answer was not found"
 }
 
+func textToSpeechOpenAi(speech string) error {
+	resp, err := http.Get("http://127.0.0.1:8125/test")
+	resp.Header.Set("text", speech)
+	if err != nil {
+		logger.Println(err)
+	}
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		logger.Println(err)
+	}
+	sb := string(body)
+	logger.Println(sb)
+	return nil
+
+}
+
 func openaiRequest(transcribedText string) string {
 
 	sendString := "You are a cute little robot named Vector. You live in your owners office, who is named Luke. You are sweet and adorable but not overbearingly so. You provide smart answers while being cute. Limit to about 20 words." + "\\" + "\"" + transcribedText + "\\" + "\"" + " , Answer: "
@@ -165,26 +180,15 @@ func openaiRequest(transcribedText string) string {
 		return "OpenAI returned no response."
 	}
 	apiResponse := strings.TrimSpace(openAIResponse.Choices[0].Text)
+	runSpeech := textToSpeechOpenAi(transcribedText)
 
-	textToSpeechOpenAi(transcribedText)
+	if runSpeech != nil {
+		return "test"
+	}
 
 	return apiResponse
 }
-func textToSpeechOpenAi(speech string) error {
-	resp, err := http.Get("http://127.0.0.1:8125/test")
-	resp.Header.Set("text", speech)
-	if err != nil {
-		logger.Println(err)
-	}
-	body, err := io.ReadAll(resp.Body)
-	if err != nil {
-		logger.Println(err)
-	}
-	sb := string(body)
-	logger.Println(sb)
-	return nil
 
-}
 func openaiKG(speechReq sr.SpeechRequest) string {
 	transcribedText, err := sttHandler(speechReq)
 	if err != nil {
