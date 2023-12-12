@@ -9,7 +9,7 @@ import (
 	"net/http"
 
 	//"os"
-	"io/ioutil"
+
 	"strings"
 
 	pb "github.com/digital-dream-labs/api/go/chipperpb"
@@ -176,7 +176,7 @@ func textToSpeechOpenAi(speech string) error {
 	if err != nil {
 		logger.Println(err)
 	}
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		logger.Println(err)
 	}
