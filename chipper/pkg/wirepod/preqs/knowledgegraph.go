@@ -3,13 +3,17 @@ package processreqs
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
+
+	//"fmt"
 	"io"
 	"net/http"
-	"os"
+
+	//"os"
+	"io/ioutil"
 	"strings"
 
 	pb "github.com/digital-dream-labs/api/go/chipperpb"
+
 	//"github.com/hajimehoshi/go-mp3"
 	"github.com/kercre123/wire-pod/chipper/pkg/logger"
 	"github.com/kercre123/wire-pod/chipper/pkg/vars"
@@ -167,45 +171,17 @@ func openaiRequest(transcribedText string) string {
 	return apiResponse
 }
 func textToSpeechOpenAi(speech string) error {
-
-	out, err := os.Create("./output.mp3")
+	resp, err := http.Get("http://127.0.0.1:8125/test")
+	resp.Header.Set("text", speech)
 	if err != nil {
-		return err
+		logger.Println(err)
 	}
-	defer out.Close()
-
-	url := "https://api.openai.com/v1/audio/speech"
-	formData := `{
-		"model": "tts-1",
-		"input": "` + speech + `",
-		"voice": "alloy"
-	}`
-
-	req, err := http.NewRequest("POST", url, bytes.NewBuffer([]byte(formData)))
+	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
-		return err
+		logger.Println(err)
 	}
-
-	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("Authorization", "Bearer "+vars.APIConfig.Knowledge.Key)
-
-	client := &http.Client{}
-	resp, err := client.Do(req)
-	if err != nil {
-		return err
-	}
-	defer resp.Body.Close()
-
-	if resp.StatusCode != http.StatusOK {
-		return fmt.Errorf("bad status: %s", resp.Status)
-	}
-
-	_, err = io.Copy(out, resp.Body)
-	logger.Println(resp.Body)
-	if err != nil {
-		return err
-	}
-
+	sb := string(body)
+	logger.Println(sb)
 	return nil
 
 }
