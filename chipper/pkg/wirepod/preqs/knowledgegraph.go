@@ -115,23 +115,22 @@ func togetherRequest(transcribedText string) string {
 	return "Answer was not found"
 }
 
-/*
-	func textToSpeechOpenAi(speech string) error {
-		resp, err := http.Get("http://127.0.0.1:8125/test")
-		resp.Header.Set("text", speech)
-		if err != nil {
-			logger.Println(err)
-		}
-		body, err := io.ReadAll(resp.Body)
-		if err != nil {
-			logger.Println(err)
-		}
-		sb := string(body)
-		logger.Println(sb)
-		return nil
+func textToSpeechOpenAi(speech string) error {
+	resp, err := http.Get("http://127.0.0.1:8125/test")
+	resp.Header.Set("text", speech)
+	if err != nil {
+		logger.Println(err)
+	}
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		logger.Println(err)
+	}
+	sb := string(body)
+	logger.Println(sb)
+	return nil
 
 }
-*/
+
 func openaiRequest(transcribedText string) string {
 
 	sendString := "You are a cute little robot named Vector. You live in your owners office, who is named Luke. You are sweet and adorable but not overbearingly so. You provide smart answers while being cute. Limit to about 20 words." + "\\" + "\"" + transcribedText + "\\" + "\"" + " , Answer: "
