@@ -117,18 +117,23 @@ func togetherRequest(transcribedText string) string {
 
 func textToSpeechOpenAi(openAIResponse string) error {
 	resp, err := http.Get("http://127.0.0.1:8125/speechcreate")
-	resp.Header.Set("text", openAIResponse)
 	if err != nil {
 		logger.Println(err)
+		return err
 	}
+	defer resp.Body.Close()
+
+	resp.Header.Set("text", openAIResponse)
+
 	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		logger.Println(err)
+		return err
 	}
+
 	sb := string(body)
 	logger.Println(sb)
 	return nil
-
 }
 
 func openaiRequest(transcribedText string) string {
