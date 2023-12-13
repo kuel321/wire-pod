@@ -159,7 +159,8 @@ func textToSpeechOpenAi(openAIResponse string) error {
 
 	err = json.Unmarshal(body, &openAIResponse)
 	if err != nil {
-		logger.Println("OpenAI returned no response.")
+		logger.Println("speechcreate")
+		logger.Println(body)
 		return err
 	}
 
