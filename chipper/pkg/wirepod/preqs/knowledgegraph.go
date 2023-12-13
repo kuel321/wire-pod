@@ -116,23 +116,55 @@ func togetherRequest(transcribedText string) string {
 }
 
 func textToSpeechOpenAi(openAIResponse string) error {
-	resp, err := http.Get("http://escapepod.local:8125/speechcreate")
+	/*
+		resp, err := http.Get("http://escapepod.local:8125/speechcreate")
+		if err != nil {
+			logger.Println(err)
+			return err
+		}
+		defer resp.Body.Close()
+
+		resp.Header.Set("text", openAIResponse)
+
+		body, err := io.ReadAll(resp.Body)
+		if err != nil {
+			logger.Println(err)
+			return err
+		}
+
+		sb := string(body)
+		logger.Println(sb)
+	*/
+	url := "http://escapepod.local:8125/speechcreate"
+	formData := `{
+		"model": "gpt-3.5-turbo-instruct",
+	
+		"temperature": 0.7,
+		"max_tokens": 256,
+		"top_p": 1,
+		"frequency_penalty": 0.2,
+		"presence_penalty": 0
+		}`
+	req, _ := http.NewRequest("POST", url, bytes.NewBuffer([]byte(formData)))
+	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("text", openAIResponse)
+	client := &http.Client{}
+	resp, err := client.Do(req)
 	if err != nil {
 		logger.Println(err)
 		return err
 	}
 	defer resp.Body.Close()
+	body, _ := io.ReadAll(resp.Body)
 
-	resp.Header.Set("text", openAIResponse)
-
-	body, err := io.ReadAll(resp.Body)
+	err = json.Unmarshal(body, &openAIResponse)
 	if err != nil {
-		logger.Println(err)
+		logger.Println("OpenAI returned no response.")
 		return err
 	}
 
-	sb := string(body)
-	logger.Println(sb)
+	logger.Println("trying to run text to speech function api call")
+
 	return nil
 }
 
