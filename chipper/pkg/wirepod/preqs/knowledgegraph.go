@@ -116,7 +116,7 @@ func togetherRequest(transcribedText string) string {
 }
 
 func textToSpeechOpenAi(openAIResponse string) error {
-	resp, err := http.Get("http://127.0.0.1:8125/speechcreate")
+	resp, err := http.Get("http://escapepod.local:8125/speechcreate")
 	if err != nil {
 		logger.Println(err)
 		return err
