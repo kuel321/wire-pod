@@ -145,7 +145,7 @@ func textToSpeechOpenAi(openAIResponse string) error {
 		"frequency_penalty": 0.2,
 		"presence_penalty": 0
 		}`
-	req, _ := http.NewRequest("POST", url, bytes.NewBuffer([]byte(formData)))
+	req, _ := http.NewRequest("GET", url, bytes.NewBuffer([]byte(formData)))
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("text", openAIResponse)
 	client := &http.Client{}
