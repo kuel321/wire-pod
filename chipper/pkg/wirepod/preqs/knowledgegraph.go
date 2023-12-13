@@ -115,9 +115,9 @@ func togetherRequest(transcribedText string) string {
 	return "Answer was not found"
 }
 
-func textToSpeechOpenAi(speech string) error {
+func textToSpeechOpenAi(openAIResponse string) error {
 	resp, err := http.Get("http://127.0.0.1:8125/speechcreate")
-	resp.Header.Set("text", speech)
+	resp.Header.Set("text", openAIResponse)
 	if err != nil {
 		logger.Println(err)
 	}
