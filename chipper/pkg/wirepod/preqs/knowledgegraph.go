@@ -116,7 +116,7 @@ func togetherRequest(transcribedText string) string {
 }
 
 func textToSpeechOpenAi(speech string) error {
-	resp, err := http.Get("http://127.0.0.1:8125/test")
+	resp, err := http.Get("http://127.0.0.1:8125/speech")
 	resp.Header.Set("text", speech)
 	if err != nil {
 		logger.Println(err)
@@ -132,7 +132,7 @@ func textToSpeechOpenAi(speech string) error {
 }
 
 func openaiRequest(transcribedText string) string {
-	//textToSpeechOpenAi(transcribedText)
+
 	sendString := "You are a cute little robot named Vector. You live in your owners office, who is named Luke. You are sweet and adorable but not overbearingly so. You provide smart answers while being cute. Limit to about 20 words." + "\\" + "\"" + transcribedText + "\\" + "\"" + " , Answer: "
 	logger.Println("Making request to OpenAI...3:48 test")
 	url := "https://api.openai.com/v1/completions"
@@ -180,6 +180,7 @@ func openaiRequest(transcribedText string) string {
 		return "OpenAI returned no response."
 	}
 	apiResponse := strings.TrimSpace(openAIResponse.Choices[0].Text)
+	textToSpeechOpenAi(apiResponse)
 	logger.Println("trying to run text to speech function api call")
 
 	return apiResponse
