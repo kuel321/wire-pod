@@ -134,7 +134,7 @@ func textToSpeechOpenAi(openAIResponse string) error {
 func openaiRequest(transcribedText string) string {
 
 	sendString := "You are a cute little robot named Vector. You live in your owners office, who is named Luke. You are sweet and adorable but not overbearingly so. You provide smart answers while being cute. Limit to about 20 words." + "\\" + "\"" + transcribedText + "\\" + "\"" + " , Answer: "
-	logger.Println("Making request to OpenAI...10:51 test")
+	logger.Println("Making request to OpenAI...10:56 test")
 	url := "https://api.openai.com/v1/completions"
 	formData := `{
 		"model": "gpt-3.5-turbo-instruct",
