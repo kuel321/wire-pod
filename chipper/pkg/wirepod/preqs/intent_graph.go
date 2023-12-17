@@ -7,7 +7,6 @@ import (
 
 	"github.com/kercre123/wire-pod/chipper/pkg/logger"
 
-	"github.com/fforchino/vector-go-sdk/pkg/vectorpb"
 	"github.com/kercre123/wire-pod/chipper/pkg/vars"
 	"github.com/kercre123/wire-pod/chipper/pkg/vtt"
 	sr "github.com/kercre123/wire-pod/chipper/pkg/wirepod/speechrequest"
@@ -16,8 +15,8 @@ import (
 
 func (s *Server) ProcessIntentGraph(req *vtt.IntentGraphRequest) (*vtt.IntentGraphResponse, error) {
 	robotObj, robotIndex, err := getRobot("007077a9")
-	robot := robotObj.Vector
-	ctx := robotObj.Ctx
+	//robot := robotObj.Vector
+	//ctx := robotObj.Ctx
 	var successMatched bool
 	logger.Println(err)
 	speechReq := sr.ReqToSpeechRequest(req)
@@ -54,14 +53,20 @@ func (s *Server) ProcessIntentGraph(req *vtt.IntentGraphRequest) (*vtt.IntentGra
 		assumeBehaviorControl(robotObj, robotIndex, "high")
 		time.Sleep(1 * time.Second)
 		logger.Println("sleep over")
-		robot.Conn.SayText(
-			ctx,
-			&vectorpb.SayTextRequest{
-				DurationScalar: 1,
-				UseVectorVoice: true,
-				Text:           apiResponse,
-			},
-		)
+
+		//audioFile := "./test.mp3"
+		// robot.Conn.ExternalAudioStreamPlayback(ctx)
+
+		// robot.Conn.SayText(
+		// 	ctx,
+		// 	&vectorpb.SayTextRequest{
+		// 		DurationScalar: 1,
+		// 		UseVectorVoice: true,
+		// 		Text:           apiResponse,
+		// 	},
+		// )
+		logger.Println(apiResponse)
+
 		robots[robotIndex].BcAssumption = false
 
 		ttr.IntentPass(req, "intent_system_noaudio", transcribedText, map[string]string{"": ""}, false)

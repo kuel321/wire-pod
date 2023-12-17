@@ -164,8 +164,6 @@ func textToSpeechOpenAi(openAIResponse string) error {
 		return err
 	}
 
-	logger.Println("trying to run text to speech function api call")
-
 	return nil
 }
 
