@@ -12,11 +12,11 @@ import (
 )
 
 func (s *Server) ProcessIntentGraph(req *vtt.IntentGraphRequest) (*vtt.IntentGraphResponse, error) {
-	//robotObj, robotIndex, err := getRobot("007077a9")
+	robotObj, robotIndex, err := getRobot("007077a9")
 	//robot := robotObj.Vector
 	//ctx := robotObj.Ctx
 	var successMatched bool
-	//logger.Println(err)
+	logger.Println(err)
 	speechReq := sr.ReqToSpeechRequest(req)
 	logger.Println(req)
 	logger.Println("line 19 intent_graph.go")
@@ -47,8 +47,8 @@ func (s *Server) ProcessIntentGraph(req *vtt.IntentGraphRequest) (*vtt.IntentGra
 	}
 	if !successMatched {
 		logger.Println("No intent was matched.")
+		assumeBehaviorControl(robotObj, robotIndex, "high")
 		apiResponse := openaiRequest(transcribedText)
-		//assumeBehaviorControl(robotObj, robotIndex, "high")
 
 		//audioFile := "./test.mp3"
 
