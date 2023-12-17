@@ -49,7 +49,7 @@ func (s *Server) ProcessIntentGraph(req *vtt.IntentGraphRequest) (*vtt.IntentGra
 	}
 	if !successMatched {
 		logger.Println("No intent was matched.")
-		//apiResponse := openaiRequest(transcribedText)
+		apiResponse := openaiRequest(transcribedText)
 		assumeBehaviorControl(robotObj, robotIndex, "high")
 		time.Sleep(11 * time.Second)
 		logger.Println("sleep over")
@@ -66,7 +66,7 @@ func (s *Server) ProcessIntentGraph(req *vtt.IntentGraphRequest) (*vtt.IntentGra
 		// 		Text:           apiResponse,
 		// 	},
 		// )
-		// logger.Println(apiResponse)
+		logger.Println(apiResponse)
 
 		// req.Stream.Send(apiResponse)
 
