@@ -80,7 +80,7 @@ func assumeBehaviorControl(robot Robot, robotIndex int, priority string) {
 		for range start {
 			for {
 				if robots[robotIndex].BcAssumption {
-					time.Sleep(time.Millisecond * 500)
+					time.Sleep(time.Millisecond * 10000)
 				} else {
 					break
 				}
