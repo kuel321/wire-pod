@@ -15,8 +15,8 @@ import (
 
 func (s *Server) ProcessIntentGraph(req *vtt.IntentGraphRequest) (*vtt.IntentGraphResponse, error) {
 	robotObj, robotIndex, err := getRobot("007077a9")
-	robot := robotObj.Vector
-	ctx := robotObj.Ctx
+	//robot := robotObj.Vector
+	//ctx := robotObj.Ctx
 	var successMatched bool
 	logger.Println(err)
 	speechReq := sr.ReqToSpeechRequest(req)
@@ -51,11 +51,12 @@ func (s *Server) ProcessIntentGraph(req *vtt.IntentGraphRequest) (*vtt.IntentGra
 		logger.Println("No intent was matched.")
 		//apiResponse := openaiRequest(transcribedText)
 		assumeBehaviorControl(robotObj, robotIndex, "high")
-		time.Sleep(1 * time.Second)
+		time.Sleep(11 * time.Second)
 		logger.Println("sleep over")
 
 		//audioFile := "./test.mp3"
-		robot.Conn.ExternalAudioStreamPlayback(ctx)
+
+		//pkg\wirepod\preqs\output\test.wav
 
 		// robot.Conn.SayText(
 		// 	ctx,
@@ -65,7 +66,9 @@ func (s *Server) ProcessIntentGraph(req *vtt.IntentGraphRequest) (*vtt.IntentGra
 		// 		Text:           apiResponse,
 		// 	},
 		// )
-		//logger.Println(apiResponse)
+		// logger.Println(apiResponse)
+
+		// req.Stream.Send(apiResponse)
 
 		robots[robotIndex].BcAssumption = false
 
@@ -75,4 +78,5 @@ func (s *Server) ProcessIntentGraph(req *vtt.IntentGraphRequest) (*vtt.IntentGra
 	}
 	logger.Println("Bot " + speechReq.Device + " request served.")
 	return nil, nil
+
 }
