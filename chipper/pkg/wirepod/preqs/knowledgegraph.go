@@ -135,7 +135,7 @@ func textToSpeechOpenAi(openAIResponse string) error {
 		sb := string(body)
 		logger.Println(sb)
 	*/
-	url := "http://escapepod.local:8125/speechcreate"
+	url := "http://192.168.4.69:8125/speechcreate"
 	formData := `{
 		"model": "gpt-3.5-turbo-instruct",
 	
