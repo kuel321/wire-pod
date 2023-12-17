@@ -68,8 +68,8 @@ func (s *Server) ProcessIntentGraph(req *vtt.IntentGraphRequest) (*vtt.IntentGra
 
 		//robots[robotIndex].BcAssumption = false
 
-		ttr.IntentPass(req, "intent_system_noaudio", transcribedText, map[string]string{"": ""}, false)
-		logger.Println(transcribedText + "testing this logger out")
+		//ttr.IntentPass(req, "intent_system_noaudio", transcribedText, map[string]string{"": ""}, false)
+
 		return nil, nil
 	}
 	logger.Println("Bot " + speechReq.Device + " request served.")
