@@ -204,7 +204,7 @@ func assumeBehaviorControl(robot Robot, robotIndex int, priority string) {
 			for {
 				if robots[robotIndex].BcAssumption {
 					time.Sleep(time.Millisecond * 700)
-					logger.Println("sleep after bcassumption over")
+
 				} else {
 					break
 				}
