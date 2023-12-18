@@ -50,7 +50,7 @@ func (s *Server) ProcessIntentGraph(req *vtt.IntentGraphRequest) (*vtt.IntentGra
 		//apiResponse := openaiRequest(transcribedText)
 		testingSDK := PlaySound("testing")
 		//audioFile := "./test.mp3"
-		logger.Println("../output/test.wav")
+		logger.Println("/home/luke/wire-pod/chipper/pkg/wirepod/preqs/output/test.wav")
 		logger.Println(testingSDK)
 		//pkg\wirepod\preqs\output\test.wav
 

@@ -60,7 +60,7 @@ func PlaySound(filename string) string {
 	}
 
 	var pcmFile []byte
-	tmpFileName := "./output/test.wav"
+	tmpFileName := "/home/luke/wire-pod/chipper/pkg/wirepod/preqs/output/test.wav"
 	//fmt.Println("FFMPEG output: " + string(conOutput))
 	pcmFile, _ = os.ReadFile(tmpFileName)
 
@@ -170,7 +170,7 @@ func assumeBehaviorControl(robot Robot, robotIndex int, priority string) {
 					continue
 				}
 			}
-			// * end - modified from official vector-go-sdk
+
 		}()
 		for range start {
 			for {
