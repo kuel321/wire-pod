@@ -123,7 +123,7 @@ func PlaySound(filename string) string {
 		//fmt.Println("Assuming already pcm")
 		pcmFile, _ = os.ReadFile(filename)
 	} else {
-		_, conError := exec.Command("ffmpeg", "-y", "-i", filename, "-f", "volume=10db", "s16le", "-acodec", "pcm_s16le", "-ar", "16000", "-ac", "1", tmpFileName).Output()
+		_, conError := exec.Command("ffmpeg", "-y", "-i", filename, "-f", "s16le", "-acodec", "pcm_s16le", "-ar", "16000", "-ac", "1", tmpFileName).Output()
 		if conError != nil {
 			fmt.Println(conError)
 		}
