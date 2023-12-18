@@ -116,26 +116,8 @@ func togetherRequest(transcribedText string) string {
 }
 
 func textToSpeechOpenAi(openAIResponse string) error {
-	/*
-		resp, err := http.Get("http://escapepod.local:8125/speechcreate")
-		if err != nil {
-			logger.Println(err)
-			return err
-		}
-		defer resp.Body.Close()
 
-		resp.Header.Set("text", openAIResponse)
-
-		body, err := io.ReadAll(resp.Body)
-		if err != nil {
-			logger.Println(err)
-			return err
-		}
-
-		sb := string(body)
-		logger.Println(sb)
-	*/
-	url := "http://192.168.4.69:8125/speechcreate"
+	url := "http://escapepod.local:8125/speechcreate"
 	formData := `{
 		"model": "gpt-3.5-turbo-instruct",
 	
