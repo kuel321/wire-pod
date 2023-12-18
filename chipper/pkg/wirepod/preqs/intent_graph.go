@@ -4,7 +4,6 @@ import (
 	//"runtime/debug"
 
 	"github.com/kercre123/wire-pod/chipper/pkg/logger"
-
 	"github.com/kercre123/wire-pod/chipper/pkg/vars"
 	"github.com/kercre123/wire-pod/chipper/pkg/vtt"
 	sr "github.com/kercre123/wire-pod/chipper/pkg/wirepod/speechrequest"
@@ -12,11 +11,11 @@ import (
 )
 
 func (s *Server) ProcessIntentGraph(req *vtt.IntentGraphRequest) (*vtt.IntentGraphResponse, error) {
-	robotObj, robotIndex, err := getRobot("007077a9")
+	//robotObj, robotIndex, err := getRobot("007077a9")
 	//robot := robotObj.Vector
 	//ctx := robotObj.Ctx
 	var successMatched bool
-	logger.Println(err)
+	//logger.Println(err)
 	speechReq := sr.ReqToSpeechRequest(req)
 	logger.Println(req)
 	logger.Println("line 19 intent_graph.go")
@@ -47,11 +46,11 @@ func (s *Server) ProcessIntentGraph(req *vtt.IntentGraphRequest) (*vtt.IntentGra
 	}
 	if !successMatched {
 		logger.Println("No intent was matched.")
-		assumeBehaviorControl(robotObj, robotIndex, "high")
-		apiResponse := openaiRequest(transcribedText)
-
+		//assumeBehaviorControl(robotObj, robotIndex, "high")
+		//apiResponse := openaiRequest(transcribedText)
+		testingSDK := PlaySound("testing")
 		//audioFile := "./test.mp3"
-
+		logger.Println(testingSDK)
 		//pkg\wirepod\preqs\output\test.wav
 
 		// robot.Conn.SayText(
@@ -62,7 +61,8 @@ func (s *Server) ProcessIntentGraph(req *vtt.IntentGraphRequest) (*vtt.IntentGra
 		// 		Text:           apiResponse,
 		// 	},
 		// )
-		logger.Println(apiResponse)
+
+		//logger.Println(apiResponse)
 
 		// req.Stream.Send(apiResponse)
 
