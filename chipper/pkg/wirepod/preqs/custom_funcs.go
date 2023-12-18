@@ -178,7 +178,9 @@ func assumeBehaviorControl(robot Robot, robotIndex int, priority string) {
 			for {
 				select {
 				case <-stop:
+					logger.Println("stopped")
 					if err := r.Send(
+
 						&vectorpb.BehaviorControlRequest{
 							RequestType: &vectorpb.BehaviorControlRequest_ControlRelease{
 								ControlRelease: &vectorpb.ControlRelease{},
