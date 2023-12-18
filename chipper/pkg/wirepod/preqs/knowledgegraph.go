@@ -145,7 +145,8 @@ func textToSpeechOpenAi(openAIResponse string) error {
 		logger.Println(body)
 		return err
 	}
-
+	testingSDK := PlaySound("/home/luke/tts-api/speech.mp3")
+	logger.Println(testingSDK)
 	return nil
 }
 

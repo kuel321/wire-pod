@@ -48,10 +48,10 @@ func (s *Server) ProcessIntentGraph(req *vtt.IntentGraphRequest) (*vtt.IntentGra
 		logger.Println("No intent was matched.")
 		//assumeBehaviorControl(robotObj, robotIndex, "high")
 		apiResponse := openaiRequest(transcribedText)
-		testingSDK := PlaySound("/home/luke/tts-api/speech.mp3")
+
 		//audioFile := "./test.mp3"
 		//logger.Println("/home/luke/wire-pod/chipper/pkg/wirepod/preqs/output/test.wav")
-		logger.Println(testingSDK)
+
 		//pkg\wirepod\preqs\output\test.wav
 
 		// robot.Conn.SayText(
