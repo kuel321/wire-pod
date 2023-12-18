@@ -89,9 +89,12 @@ func getAudioLength(audioFile string) string {
 
 		t = t + f.Duration().Seconds()
 	}
-	totalDuration := strconv.FormatFloat(t, 'E', -1, 64)
+	totalDurationFloatToString := strconv.FormatFloat(t, 'E', -1, 64)
+	totalDurationFirstNumber := totalDurationFloatToString[0]
+	logger.Println(totalDurationFirstNumber)
 	fmt.Println(t)
-	return totalDuration
+
+	return "testing"
 }
 func PlaySound(filename string) string {
 	getAudioLength(filename)
