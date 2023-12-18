@@ -89,9 +89,11 @@ func getAudioLength(audioFile string) string {
 
 		t = t + f.Duration().Seconds()
 	}
+	DurationWithAddedTime := t + 2000
 	totalDurationFloatToString := strconv.FormatFloat(t, 'E', -1, 64)
 	totalDurationFirstNumber := totalDurationFloatToString[0]
 	logger.Println(totalDurationFirstNumber)
+	logger.Println(DurationWithAddedTime)
 	fmt.Println(t)
 
 	return "testing"
