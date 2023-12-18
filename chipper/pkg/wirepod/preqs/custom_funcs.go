@@ -3,16 +3,19 @@ package processreqs
 import (
 	"errors"
 	"fmt"
+	"io"
 	"log"
 	"os"
 	"os/exec"
 	"path"
+	"strconv"
 	"strings"
 	"time"
 
 	"github.com/fforchino/vector-go-sdk/pkg/vectorpb"
 
 	"github.com/kercre123/wire-pod/chipper/pkg/logger"
+	"github.com/tcolgate/mp3"
 )
 
 var SYSTEMSOUND_WIN = "audio/win.pcm"
@@ -61,14 +64,37 @@ func GetTemporaryFilename(tag string, extension string, fullpath bool) string {
 	return tmpFile
 }
 
-// Returns values in the range 1-5
+func getAudioLength(audioFile string) string {
+	t := 0.0
 
-// Returns values in the range 0-100
+	r, err := os.Open(audioFile)
+	if err != nil {
+		fmt.Println(err)
+		return "error"
+	}
 
-// Plays one of the SYSTEMSOUND_... files
+	d := mp3.NewDecoder(r)
+	var f mp3.Frame
+	skipped := 0
 
+	for {
+
+		if err := d.Decode(&f, &skipped); err != nil {
+			if err == io.EOF {
+				break
+			}
+			fmt.Println(err)
+			return "error"
+		}
+
+		t = t + f.Duration().Seconds()
+	}
+	totalDuration := strconv.FormatFloat(t, 'E', -1, 64)
+	fmt.Println(t)
+	return totalDuration
+}
 func PlaySound(filename string) string {
-
+	getAudioLength(filename)
 	//logger.Println(filename)
 	robotObj, robotIndex, err := getRobot("007077a9")
 	robot := robotObj.Vector
