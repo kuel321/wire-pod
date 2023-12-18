@@ -50,7 +50,7 @@ func (s *Server) ProcessIntentGraph(req *vtt.IntentGraphRequest) (*vtt.IntentGra
 		//apiResponse := openaiRequest(transcribedText)
 		testingSDK := PlaySound("testing")
 		//audioFile := "./test.mp3"
-		logger.Println(testingSDK)
+		logger.Println("./output/test.wav")
 		//pkg\wirepod\preqs\output\test.wav
 
 		// robot.Conn.SayText(
