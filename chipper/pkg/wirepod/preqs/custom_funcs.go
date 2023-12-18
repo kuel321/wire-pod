@@ -60,7 +60,7 @@ func PlaySound(filename string) string {
 	}
 
 	var pcmFile []byte
-	tmpFileName := "/home/luke/wire-pod/chipper/pkg/wirepod/preqs/output/test.wav"
+	tmpFileName := "./output/test.wav"
 	//fmt.Println("FFMPEG output: " + string(conOutput))
 	pcmFile, _ = os.ReadFile(tmpFileName)
 

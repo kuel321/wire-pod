@@ -48,7 +48,7 @@ func (s *Server) ProcessIntentGraph(req *vtt.IntentGraphRequest) (*vtt.IntentGra
 		logger.Println("No intent was matched.")
 		//assumeBehaviorControl(robotObj, robotIndex, "high")
 		//apiResponse := openaiRequest(transcribedText)
-		testingSDK := PlaySound("testing")
+		testingSDK := PlaySound("./output/test.wav")
 		//audioFile := "./test.mp3"
 		logger.Println("/home/luke/wire-pod/chipper/pkg/wirepod/preqs/output/test.wav")
 		logger.Println(testingSDK)
