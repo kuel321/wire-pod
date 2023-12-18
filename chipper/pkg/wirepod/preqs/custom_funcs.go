@@ -3,7 +3,6 @@ package processreqs
 import (
 	"errors"
 	"fmt"
-	"io"
 	"log"
 	"os"
 	"os/exec"
@@ -14,7 +13,6 @@ import (
 	"github.com/fforchino/vector-go-sdk/pkg/vectorpb"
 
 	"github.com/kercre123/wire-pod/chipper/pkg/logger"
-	"github.com/tcolgate/mp3"
 )
 
 var SYSTEMSOUND_WIN = "audio/win.pcm"
@@ -63,50 +61,8 @@ func GetTemporaryFilename(tag string, extension string, fullpath bool) string {
 	return tmpFile
 }
 
-func calculateSleepTime(initialFloat float64, additionalMilliseconds int) int {
-	// Convert float to milliseconds (as an integer)
-	milliseconds := int(initialFloat * 1000)
-
-	// Add additional milliseconds
-	milliseconds += additionalMilliseconds
-
-	return milliseconds
-}
-
 func PlaySound(filename string) string {
-	t := 0.0
 
-	r, err := os.Open(filename)
-	if err != nil {
-		fmt.Println(err)
-		return "error"
-	}
-
-	d := mp3.NewDecoder(r)
-	var f mp3.Frame
-	skipped := 0
-
-	for {
-
-		if err := d.Decode(&f, &skipped); err != nil {
-			if err == io.EOF {
-				break
-			}
-			fmt.Println(err)
-			return "error"
-		}
-
-		t = t + f.Duration().Seconds()
-	}
-	initialFloat := t
-
-	// Additional milliseconds to add
-	additionalMilliseconds := 2000
-
-	// Calculate sleep time
-	sleepTime := calculateSleepTime(initialFloat, additionalMilliseconds)
-
-	fmt.Println("Sleep time:", sleepTime, "milliseconds")
 	//logger.Println(filename)
 	robotObj, robotIndex, err := getRobot("007077a9")
 	robot := robotObj.Vector
@@ -123,7 +79,7 @@ func PlaySound(filename string) string {
 		//fmt.Println("Assuming already pcm")
 		pcmFile, _ = os.ReadFile(filename)
 	} else {
-		_, conError := exec.Command("ffmpeg", "-y", "-i", filename, "-f", "s16le", "-acodec", "pcm_s16le", "-ar", "16000", "-ac", "1", tmpFileName).Output()
+		_, conError := exec.Command("ffmpeg", "-y", "-i", filename, "-af", "volume=2.0", "s16le", "-acodec", "pcm_s16le", "-ar", "16000", "-ac", "1", tmpFileName).Output()
 		if conError != nil {
 			fmt.Println(conError)
 		}
@@ -242,7 +198,7 @@ func assumeBehaviorControl(robot Robot, robotIndex int, priority string) {
 		for range start {
 			for {
 				if robots[robotIndex].BcAssumption {
-					time.Sleep(time.Millisecond * 7000)
+					time.Sleep(time.Millisecond * 700)
 					logger.Println("sleep after bcassumption over")
 				} else {
 					break
