@@ -157,7 +157,7 @@ func PlaySound(filename string) string {
 				},
 			},
 		})
-		time.Sleep(time.Millisecond * 7000)
+		time.Sleep(time.Millisecond * 30)
 	}
 	audioClient.SendMsg(&vectorpb.ExternalAudioStreamRequest{
 		AudioRequestType: &vectorpb.ExternalAudioStreamRequest_AudioStreamComplete{
