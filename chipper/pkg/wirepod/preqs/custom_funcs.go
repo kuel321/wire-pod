@@ -115,6 +115,7 @@ func PlaySound(filename string) string {
 		})
 		time.Sleep(time.Millisecond * 30)
 	}
+	time.Sleep(time.Millisecond * 2000)
 	logger.Println("done")
 	audioClient.SendMsg(&vectorpb.ExternalAudioStreamRequest{
 		AudioRequestType: &vectorpb.ExternalAudioStreamRequest_AudioStreamComplete{
