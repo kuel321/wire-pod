@@ -5,7 +5,9 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"os/exec"
 	"path"
+	"strings"
 	"time"
 
 	"github.com/fforchino/vector-go-sdk/pkg/vectorpb"
@@ -67,7 +69,7 @@ func GetTemporaryFilename(tag string, extension string, fullpath bool) string {
 
 func PlaySound(filename string) string {
 
-	logger.Println(filename)
+	//logger.Println(filename)
 	robotObj, robotIndex, err := getRobot("007077a9")
 	robot := robotObj.Vector
 	ctx := robotObj.Ctx
@@ -79,9 +81,17 @@ func PlaySound(filename string) string {
 
 	var pcmFile []byte
 	tmpFileName := GetTemporaryFilename("sound", "pcm", true)
-	//fmt.Println("FFMPEG output: " + string(conOutput))
-	pcmFile, _ = os.ReadFile(tmpFileName)
-
+	if strings.Contains(filename, ".pcm") || strings.Contains(filename, ".raw") {
+		//fmt.Println("Assuming already pcm")
+		pcmFile, _ = os.ReadFile(filename)
+	} else {
+		_, conError := exec.Command("ffmpeg", "-y", "-i", filename, "-f", "s16le", "-acodec", "pcm_s16le", "-ar", "16000", "-ac", "1", tmpFileName).Output()
+		if conError != nil {
+			fmt.Println(conError)
+		}
+		//fmt.Println("FFMPEG output: " + string(conOutput))
+		pcmFile, _ = os.ReadFile(tmpFileName)
+	}
 	var audioChunks [][]byte
 	for len(pcmFile) >= 1024 {
 		audioChunks = append(audioChunks, pcmFile[:1024])
@@ -193,7 +203,7 @@ func assumeBehaviorControl(robot Robot, robotIndex int, priority string) {
 		for range start {
 			for {
 				if robots[robotIndex].BcAssumption {
-					time.Sleep(time.Millisecond * 10000)
+					time.Sleep(time.Millisecond * 1000)
 				} else {
 					break
 				}
