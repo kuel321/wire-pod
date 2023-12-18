@@ -2,8 +2,10 @@ package processreqs
 
 import (
 	"errors"
+	"fmt"
 	"log"
 	"os"
+	"path"
 	"time"
 
 	"github.com/fforchino/vector-go-sdk/pkg/vectorpb"
@@ -18,6 +20,12 @@ const VOLUME_LEVEL_MINIMUM = 1
 
 var audioStreamClient vectorpb.ExternalInterface_AudioFeedClient
 var audioStreamEnable bool = false
+
+type SDKConfigData struct {
+	TmpPath  string
+	DataPath string
+	NvmPath  string
+}
 
 func EnableAudioStream() {
 	robotObj, robotIndex, err := getRobot("007077a9")
@@ -41,6 +49,16 @@ func ProcessAudioStream() {
 	}
 }
 
+func GetTemporaryFilename(tag string, extension string, fullpath bool) string {
+	var SDKConfig = SDKConfigData{"/tmp/", "data", "nvm"}
+	tmpPath := SDKConfig.TmpPath
+	tmpFile := "007077a9" + "_" + tag + fmt.Sprintf("_%d", time.Now().Unix()) + "." + extension
+	if fullpath {
+		tmpFile = path.Join(tmpPath, tmpFile)
+	}
+	return tmpFile
+}
+
 // Returns values in the range 1-5
 
 // Returns values in the range 0-100
@@ -60,7 +78,7 @@ func PlaySound(filename string) string {
 	}
 
 	var pcmFile []byte
-	tmpFileName := "./output/test.wav"
+	tmpFileName := GetTemporaryFilename("sound", "pcm", true)
 	//fmt.Println("FFMPEG output: " + string(conOutput))
 	pcmFile, _ = os.ReadFile(tmpFileName)
 
