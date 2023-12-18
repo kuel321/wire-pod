@@ -138,15 +138,15 @@ func textToSpeechOpenAi(openAIResponse string) error {
 	}
 	defer resp.Body.Close()
 	body, _ := io.ReadAll(resp.Body)
-
-	err = json.Unmarshal(body, &openAIResponse)
-	if err != nil {
-		logger.Println("speechcreate")
-		logger.Println(body)
-		return err
-	}
 	testingSDK := PlaySound("/home/luke/tts-api/speech.mp3")
 	logger.Println(testingSDK)
+	err = json.Unmarshal(body, &openAIResponse)
+	if err != nil {
+		logger.Println(err)
+		//logger.Println(body)
+		return err
+	}
+
 	return nil
 }
 
