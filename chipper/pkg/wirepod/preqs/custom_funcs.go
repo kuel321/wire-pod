@@ -157,7 +157,7 @@ func PlaySound(filename string) string {
 				},
 			},
 		})
-		time.Sleep(time.Millisecond * 30)
+		time.Sleep(time.Millisecond * 7000)
 	}
 	audioClient.SendMsg(&vectorpb.ExternalAudioStreamRequest{
 		AudioRequestType: &vectorpb.ExternalAudioStreamRequest_AudioStreamComplete{
@@ -243,6 +243,7 @@ func assumeBehaviorControl(robot Robot, robotIndex int, priority string) {
 			for {
 				if robots[robotIndex].BcAssumption {
 					time.Sleep(time.Millisecond * 7000)
+					logger.Println("sleep after bcassumption over")
 				} else {
 					break
 				}
