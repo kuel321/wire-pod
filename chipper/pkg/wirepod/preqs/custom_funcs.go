@@ -68,6 +68,7 @@ func PlaySound(filename string) string {
 	robot := robotObj.Vector
 	ctx := robotObj.Ctx
 	logger.Println(robotIndex, err)
+	assumeBehaviorControl(robotObj, robotIndex, "high")
 	if _, err := os.Stat(filename); errors.Is(err, os.ErrNotExist) {
 		println("File not found!")
 		return "failure"
@@ -79,7 +80,7 @@ func PlaySound(filename string) string {
 		//fmt.Println("Assuming already pcm")
 		pcmFile, _ = os.ReadFile(filename)
 	} else {
-		_, conError := exec.Command("ffmpeg", "-y", "-i", filename, "-af", "volume=2.0", "-f", "s16le", "-acodec", "pcm_s16le", "-ar", "16000", "-ac", "1", tmpFileName).Output()
+		_, conError := exec.Command("ffmpeg", "-y", "-i", filename, "-af", "volume=4.0", "-f", "s16le", "-acodec", "pcm_s16le", "-ar", "16000", "-ac", "1", tmpFileName).Output()
 		if conError != nil {
 			fmt.Println(conError)
 		}
@@ -123,7 +124,7 @@ func PlaySound(filename string) string {
 		},
 	})
 	os.Remove(tmpFileName)
-
+	robots[robotIndex].BcAssumption = false
 	return "success"
 }
 func assumeBehaviorControl(robot Robot, robotIndex int, priority string) {

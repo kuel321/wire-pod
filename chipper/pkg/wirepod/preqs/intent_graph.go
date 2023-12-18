@@ -46,7 +46,7 @@ func (s *Server) ProcessIntentGraph(req *vtt.IntentGraphRequest) (*vtt.IntentGra
 	}
 	if !successMatched {
 		logger.Println("No intent was matched.")
-		//assumeBehaviorControl(robotObj, robotIndex, "high")
+
 		apiResponse := openaiRequest(transcribedText)
 
 		//audioFile := "./test.mp3"
