@@ -8,7 +8,6 @@ import (
 	"os"
 	"os/exec"
 	"path"
-	"strconv"
 	"strings"
 	"time"
 
@@ -64,10 +63,20 @@ func GetTemporaryFilename(tag string, extension string, fullpath bool) string {
 	return tmpFile
 }
 
-func getAudioLength(audioFile string) string {
+func calculateSleepTime(initialFloat float64, additionalMilliseconds int) int {
+	// Convert float to milliseconds (as an integer)
+	milliseconds := int(initialFloat * 1000)
+
+	// Add additional milliseconds
+	milliseconds += additionalMilliseconds
+
+	return milliseconds
+}
+
+func PlaySound(filename string) string {
 	t := 0.0
 
-	r, err := os.Open(audioFile)
+	r, err := os.Open(filename)
 	if err != nil {
 		fmt.Println(err)
 		return "error"
@@ -89,17 +98,15 @@ func getAudioLength(audioFile string) string {
 
 		t = t + f.Duration().Seconds()
 	}
-	DurationWithAddedTime := t + 2000
-	totalDurationFloatToString := strconv.FormatFloat(t, 'E', -1, 64)
-	totalDurationFirstNumber := totalDurationFloatToString[0]
-	logger.Println(totalDurationFirstNumber)
-	logger.Println(DurationWithAddedTime)
-	fmt.Println(t)
+	initialFloat := t
 
-	return "testing"
-}
-func PlaySound(filename string) string {
-	getAudioLength(filename)
+	// Additional milliseconds to add
+	additionalMilliseconds := 2000
+
+	// Calculate sleep time
+	sleepTime := calculateSleepTime(initialFloat, additionalMilliseconds)
+
+	fmt.Println("Sleep time:", sleepTime, "milliseconds")
 	//logger.Println(filename)
 	robotObj, robotIndex, err := getRobot("007077a9")
 	robot := robotObj.Vector
@@ -181,6 +188,7 @@ func assumeBehaviorControl(robot Robot, robotIndex int, priority string) {
 		}
 	}
 	go func() {
+
 		start := make(chan bool)
 		stop := make(chan bool)
 		robots[robotIndex].BcAssumption = true
@@ -234,7 +242,7 @@ func assumeBehaviorControl(robot Robot, robotIndex int, priority string) {
 		for range start {
 			for {
 				if robots[robotIndex].BcAssumption {
-					time.Sleep(time.Millisecond * 5000)
+					time.Sleep(time.Millisecond * 7000)
 				} else {
 					break
 				}
