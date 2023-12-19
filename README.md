@@ -1,4 +1,9 @@
-# wire-pod
+# Wire-pod
+`by kuel321`
+This is a fork of kercel123's wire-pod. It adds changes to the way knowledge graph functions for anyone wanting to add more customization to Vector's responses, such as using OpenAI's TTS voice models. Installation should be the same as the original instructions shown below.
+
+## FYI
+I'm not the greatest with Go, so in order to handle the OpenAI TTS API, I built a Node server that sends the knowledgegraph response to the speech models and downloads the .mp3 file. You can find it [here](https://github.com/kuel321/tts-api).
 
 `wire-pod` is fully-featured server software for the Anki (now Digital Dream Labs) [Vector](https://web.archive.org/web/20190417120536if_/https://www.anki.com/en-us/vector) robot. It was created thanks to Digital Dream Labs' [open-sourced code](https://github.com/digital-dream-labs/chipper).
 
