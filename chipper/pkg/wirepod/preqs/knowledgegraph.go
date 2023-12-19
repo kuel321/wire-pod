@@ -152,7 +152,7 @@ func textToSpeechOpenAi(openAIResponse string) error {
 
 func openaiRequest(transcribedText string) string {
 
-	sendString := "Your name is Vector, and you're a robot living in Luke's office. You're a helpful assistant. The office is located in West Virginia. You have a cute personality. The questions I ask may be off because I'm using a STT service to ask the questions. EVen though you're a robot, you still give human responses, like a character in a show, almost." + "\\" + "\"" + transcribedText + "\\" + "\"" + " , Answer: "
+	sendString := "You are an assistant named Vector. Your responses will be sent to a generated voice so make it sound realistic, add uhms and uhs, and add inflection in the text response, as if it was being said by a real person. My questions will be sent with STT so It may not be punctuated or spelled correctly. You have a fun personality. Here is the question:" + "\\" + "\"" + transcribedText + "\\" + "\"" + " , Answer: "
 	logger.Println("Making request to OpenAI...10:56 test")
 	url := "https://api.openai.com/v1/completions"
 	formData := `{
