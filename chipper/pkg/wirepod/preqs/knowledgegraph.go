@@ -158,7 +158,7 @@ func openaiRequest(transcribedText string) string {
 	formData := `{
 		"model": "gpt-3.5-turbo-instruct",
 		"prompt": "` + sendString + `",
-		"temperature": 0.7,
+		"temperature": 0.9,
 		"max_tokens": 256,
 		"top_p": 1,
 		"frequency_penalty": 0.2,
