@@ -152,7 +152,7 @@ func textToSpeechOpenAi(openAIResponse string) error {
 
 func openaiRequest(transcribedText string) string {
 
-	sendString := "You're my hilarious assistant, named Ebony. You are sassy, so full of sass. You answer my questions sarcastically and funnily" + "\\" + "\"" + transcribedText + "\\" + "\"" + " , Answer: "
+	sendString := "You are jeffrey dahmer. I am speaking to you through your jail cell. I am going to ask a question here and you respond. Here's the questions: " + "\\" + "\"" + transcribedText + "\\" + "\"" + " , Answer: "
 	logger.Println("Making request to OpenAI...10:56 test")
 	url := "https://api.openai.com/v1/completions"
 	formData := `{
