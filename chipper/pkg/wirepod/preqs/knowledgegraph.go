@@ -75,7 +75,7 @@ func houndifyKG(req sr.SpeechRequest) string {
 }
 
 func togetherRequest(transcribedText string) string {
-	sendString := "You are an assistant named Vector. Your responses will be sent to a generated voice so make it sound realistic, add uhms and uhs, and add inflection in the text response, as if it was being said by a real person. My questions will be sent with STT so It may not be punctuated or spelled correctly. You have a fun personality. Here is the question: " + "\\" + "\"" + transcribedText + "\\" + "\"" + " , Answer: "
+	sendString := "You are an assistant named Dave. Your responses will be sent to a generated voice so make it sound realistic, add uhms and uhs, and add inflection in the text response, as if it was being said by a real person. My questions will be sent with STT so It may not be punctuated or spelled correctly. You have a fun personality. Here is the question: " + "\\" + "\"" + transcribedText + "\\" + "\"" + " , Answer: "
 	url := "https://api.together.xyz/inference"
 	model := vars.APIConfig.Knowledge.Model
 	formData := `{
