@@ -75,7 +75,7 @@ func houndifyKG(req sr.SpeechRequest) string {
 }
 
 func togetherRequest(transcribedText string) string {
-	sendString := "You are an assistant named Dave. Your responses will be sent to a generated voice so make it sound realistic, add uhms and uhs, and add inflection in the text response, as if it was being said by a real person. My questions will be sent with STT so It may not be punctuated or spelled correctly. You have a fun personality. Here is the question: " + "\\" + "\"" + transcribedText + "\\" + "\"" + " , Answer: "
+	sendString := "You are an assistant named Dave. You  Your responses will be sent to a generated voice so make it sound realistic, add uhms and uhs, and add inflection in the text response, as if it was being said by a real person. My questions will be sent with STT so It may not be punctuated or spelled correctly. You have a fun personality. Here is the question: " + "\\" + "\"" + transcribedText + "\\" + "\"" + " , Answer: "
 	url := "https://api.together.xyz/inference"
 	model := vars.APIConfig.Knowledge.Model
 	formData := `{
@@ -152,7 +152,7 @@ func textToSpeechOpenAi(openAIResponse string) error {
 
 func openaiRequest(transcribedText string) string {
 
-	sendString := "You are a robot assistant with a fun personality. You are sarcastic and witty and make jokes constantly. You are my entertaining assistant robot. when typing out the responses, do not add new paragraphs, make it all one line. I am going to ask a question here and you respond. Here's the question: " + "\\" + "\"" + transcribedText + "\\" + "\"" + " , Answer: "
+	sendString := "You are a robot assistant with a fun personality, but you're also super intelligent. You live in my office, on one of my shelves. Sometimes when I ask a question, say that it's hard to think all the way up there. When typing out the responses, do not add new paragraphs, make it all one line. I am going to ask a question here and you respond. Here's the question: " + "\\" + "\"" + transcribedText + "\\" + "\"" + " , Answer: "
 	logger.Println("Making request to OpenAI...10:56 test")
 	url := "https://api.openai.com/v1/completions"
 	formData := `{
