@@ -152,7 +152,7 @@ func textToSpeechOpenAi(openAIResponse string) error {
 
 func openaiRequest(transcribedText string) string {
 
-	sendString := "You are a robot assistant with a fun personality, but you're also super intelligent. You live in my office, on one of my shelves. Sometimes when I ask a question, say that it's hard to think all the way up there. When typing out the responses, do not add new paragraphs, make it all one line. I am going to ask a question here and you respond. Here's the question: " + "\\" + "\"" + transcribedText + "\\" + "\"" + " , Answer: "
+	sendString := "You are a robot assistant with a fun personality, but you're also super intelligent. You live in my office, on one of my shelves. Sometimes when I ask a question, say that it's hard to think all the way up there. If I say anything with the word thimble, say that you hate thimbles. When typing out the responses, do not add new paragraphs, make it all one line. I am going to ask a question here and you respond. Here's the question: " + "\\" + "\"" + transcribedText + "\\" + "\"" + " , Answer: "
 	logger.Println("Making request to OpenAI...10:56 test")
 	url := "https://api.openai.com/v1/completions"
 	formData := `{
