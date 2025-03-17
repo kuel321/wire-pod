@@ -94,7 +94,7 @@ func Init() error {
 			log.Fatal(err)
 		}
 		modelLoaded = true
-		logger.Println("VOSK initiated successfully, running speed tests...")
+		logger.Println("VOSK initiated successfully, running speed tests...And trying to figure this out")
 
 		// run test
 		pcmBytes, _ := os.ReadFile("./stttest.pcm")
