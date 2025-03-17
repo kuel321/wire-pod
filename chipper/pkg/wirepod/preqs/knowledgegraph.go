@@ -173,6 +173,7 @@ func openaiRequest(transcribedText string) string {
 		logger.Println(err)
 		return "There was an error making the request to OpenAI."
 	}
+	logger.Println("OpenAI Header " + sendString)
 	defer resp.Body.Close()
 	body, _ := io.ReadAll(resp.Body)
 	type openAIStruct struct {
