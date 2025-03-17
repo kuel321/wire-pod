@@ -201,7 +201,7 @@ func openaiRequest(transcribedText string) string {
 	}
 	apiResponse := strings.TrimSpace(openAIResponse.Choices[0].Text)
 	textToSpeechOpenAi(apiResponse)
-	logger.Println("trying to run text to speech function api call")
+	logger.Println("trying to run text to speech function api call test")
 
 	return apiResponse
 }
