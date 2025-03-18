@@ -19,7 +19,7 @@
 /vosk
 /chipper/customIntents.json
 /chipper/botConfig.json
-/chipper/jdocs/*.json
+
 /chipper/nvm
 /chipper/apiConfig.json
 /chipper/session-certs/0*
@@ -39,3 +39,4 @@
 /chipper/macos/target
 /whisper.cpp
 .DS_Store
+!chipper/jdocs/botSdkInfo.json
