@@ -204,7 +204,7 @@ func openaiRequest(transcribedText string) string {
 	}
 
 	payload, _ := json.Marshal(formData)
-	logger.Println("Making request to OpenAI with model:", formData["model"])
+	logger.Println("Making request to OpenAI with model:", formData["prompt"])
 	req, _ := http.NewRequest("POST", url, bytes.NewBuffer(payload))
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Authorization", "Bearer "+vars.APIConfig.Knowledge.Key)
@@ -230,9 +230,13 @@ func openaiRequest(transcribedText string) string {
 	}
 
 	apiResponse := strings.TrimSpace(parsed.Choices[0].Text)
-	_ = textToSpeechOpenAi(apiResponse)
 
-	return apiResponse
+logger.Println("OpenAI final response:", apiResponse)
+
+_ = textToSpeechOpenAi(apiResponse)
+
+return apiResponse
+
 }
 
 func openaiKG(speechReq sr.SpeechRequest) string {
